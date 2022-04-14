@@ -8,7 +8,7 @@ namespace MyApplication
   {
     static void Main(string[] args)
     {
-			//declare variable
+			//declare variables
 			bool userChoice;
 			string userChoiceString;
 			int fileMax = 10;

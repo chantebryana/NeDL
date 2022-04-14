@@ -6,6 +6,19 @@ namespace MyApplication
 {
   class Program
   {
+		static string askUserMenuOptions () {
+			Console.WriteLine("");
+			Console.WriteLine("Select a Menu Option:");
+			Console.WriteLine("   L: Load the data file into an array.");
+			Console.WriteLine("   S: Store the array into the data file.");
+			Console.WriteLine("   C: Add the array into the data file.");
+			Console.WriteLine("   R: Read a name from the array (if it's there).");
+			Console.WriteLine("   U: Update a name in the array (if it's there).");
+			Console.WriteLine("   D: Delete a name from the array (if it's there).");
+			Console.WriteLine("   Q: Quit the program.");
+
+			return Console.ReadLine();
+		}
     static void Main(string[] args)
     {
 			//declare variables
@@ -23,21 +36,10 @@ namespace MyApplication
 					userChoice = false;
 					
 					//provide the user a menu of options
-					Console.WriteLine("");
-					Console.WriteLine("Select a Menu Option:");
-					Console.WriteLine("   L: Load the data file into an array.");
-					Console.WriteLine("   S: Store the array into the data file.");
-					Console.WriteLine("   C: Add the array into the data file.");
-					Console.WriteLine("   R: Read a name from the array (if it's there).");
-					Console.WriteLine("   U: Update a name in the array (if it's there).");
-					Console.WriteLine("   D: Delete a name from the array (if it's there).");
-					Console.WriteLine("   Q: Quit the program.");
-
-
 					//get a valid user option (validation)
-					//string userChoiceString = (Console.ReadLine()).ToLower();
-					userChoiceString = Console.ReadLine();
+					userChoiceString = askUserMenuOptions();
 
+					//valid user choices
 					userChoice = (userChoiceString == "L" || userChoiceString == "l" ||
 												userChoiceString == "S" || userChoiceString == "s" ||
 												userChoiceString == "C" || userChoiceString == "c" ||
@@ -66,6 +68,7 @@ namespace MyApplication
 							i++;
 						} //end while loop
 					} //end using
+					Console.WriteLine("File successfully loaded.");
 				}
 
 				//else if the option is 'S' or 's', then store the array into the txt file

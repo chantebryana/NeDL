@@ -41,6 +41,21 @@ namespace MyApplication
 			return tempArr;
 		}
 
+		//print contents of each array
+		static void printArrays (string[] arr1, string[] arr2) {
+			//loop through each array; only print elements with info
+				for (int i = 0; i < arr1.Length; i++) {
+						//stop loop if element is empty
+						if (arr1[i] == null) {
+							break;
+						} else if ( arr1[i] == "") {
+							break;
+						} //end if/else
+						
+						//if element has contents, then print them to the console
+						Console.WriteLine($"{arr1[i]} Rating: {arr2[i]}");
+				} //end for
+		}
 
 		static void Main(string[] args)
     {
@@ -122,15 +137,18 @@ namespace MyApplication
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ FILE");
 
+					//print contents of each array to user
+					printArrays(restaurantArr, ratingArr);
+
 				}
 
-				//U - UPDATE
+				//U - UPDATE - OPTIONAL
 				else if (userChoiceString == "U") {
 					Console.WriteLine("UPDATE RATING");
 
 				}
 
-				//D - DELETE
+				//D - DELETE - OPTIONAL
 				else if (userChoiceString == "D") {
 					Console.WriteLine("DELETE RESTAURANT");
 

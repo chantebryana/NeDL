@@ -23,6 +23,7 @@ namespace MyApplication
 		}
 		
 		//parse even/odd indexes of single array into another single array
+		//for OPEN
 		static string[] parseArray (string[] singleArray, int zeroOrOne) {
 			//initialize variables
 			string[] tempArr = new string[((singleArray.Length)/2)];
@@ -42,6 +43,7 @@ namespace MyApplication
 		}
 
 		//print contents of each array
+		//for READ
 		static void printArrays (string[] arr1, string[] arr2) {
 			//loop through each array; only print elements with info
 				for (int i = 0; i < arr1.Length; i++) {
@@ -55,6 +57,76 @@ namespace MyApplication
 						//if element has contents, then print them to the console
 						Console.WriteLine($"{arr1[i]} Rating: {arr2[i]}");
 				} //end for
+		}
+
+		//validate user input (lo and hi)
+    static int ValidateInput(string userInput, int low, int high) {
+        //convert string to int
+				int inputInt = Convert.ToInt16(userInput);
+
+				//if incorrect   
+        if (inputInt < low || inputInt > high) {
+						return 0;
+        } 
+        //if correct
+        else {
+            return 1;
+        }
+    }
+
+		//verify whether array is full
+		//for CREATE
+		static int IsArrayFull(string[] array) {
+			//count how many active records in array
+			int validCount = 0;
+			for (int i = 0; i < array.Length; i++) {
+				if (array[i] != "" && array[i] != null) {
+					validCount+=2;;
+				} //end if
+			} //end for
+
+			return validCount;
+		}
+
+		//add entry to first empty slot in arrays
+		//for CREATE
+		static string[] CreateNewEntryInArray(string[] array, string newEntry) {
+			//initialize variable
+			bool created = false; 
+			for (int i = 0; i < array.Length; i++) {
+				if ((array[i] == null || array[i] == "") && created == false) {
+					array[i] = newEntry;
+					created = true;
+				} //end if
+			} //end for
+			
+			return array;
+		}
+
+		//ask user for rating and validate
+		//for CREATE
+		static string askValidateRating(string question) {
+
+			//initialize variables
+			string newRating;
+			int validate = 0;
+			bool firstPass = true;
+
+			//ask user for rating, and validate that input is within range
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Woops, wrong input.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				newRating = Console.ReadLine();
+				validate = ValidateInput(newRating, 0, 5);
+			} while (validate != 1) ; //end do/while
+
+			return newRating;
 		}
 
 		static void Main(string[] args)
@@ -94,7 +166,7 @@ namespace MyApplication
 				} while (!userChoice) ; //end inner do
 
 				//logic for individual user choices
-				//O - OPEN
+				//O - OPEN - COMPLETE
 				if (userChoiceString == "O") {
 					Console.WriteLine("OPEN FILE");
 
@@ -129,11 +201,31 @@ namespace MyApplication
 
 				//C - CREATE
 				else if (userChoiceString == "C") {
-					Console.WriteLine("CREATE NEW RESTAURANT");
+					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
+
+					int validCount = IsArrayFull(restaurantArr);
+
+					//if array is full, tell user they can't create new entry
+					if (validCount >= arrLength) {
+						Console.WriteLine($"File contains {validCount} records and is full. Delete an entry before adding a new one.");
+					}
+
+					// else if array has space, prompt user for new entry info, then save to arrays
+					else {
+						Console.WriteLine("Enter a new restaurant");
+						string newRestaurant = Console.ReadLine();
+						
+						//ask for rating and validate input is within range
+						string question = "Rate Restaurant (0 to 5)";
+						string newRating = askValidateRating(question);
+
+						restaurantArr = CreateNewEntryInArray(restaurantArr, newRestaurant);
+						ratingArr = CreateNewEntryInArray(ratingArr, newRating);
+					} //end if/else
 
 				}
 
-				//R - READ/PRINT
+				//R - READ/PRINT - COMPLETE
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ FILE");
 
@@ -154,8 +246,9 @@ namespace MyApplication
 
 				}
 
-				//Q - QUIT
+				//Q - QUIT - COMPLETE
 				else {
+					Console.WriteLine("QUIT PROGRAM");
 					Console.WriteLine("~~~Adios Sayōnara Goodbye Chao Mae Alsalama~~~");
 				} //end if/else
 

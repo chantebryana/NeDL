@@ -1,4 +1,32 @@
 /*
+		//ask user for restaurant to update, then validate input
+		//for UPDATE
+		static string askValidateEntrytForUpdate(string question, string[] arr, string userInput) {
+
+			//initialize variables
+			string newRestaurant;
+			bool validate;
+			bool firstPass = true;
+
+			//ask user for rating, and validate that input is within range
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Woops, wrong input.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				newRating = Console.ReadLine();
+				validate = validateEntryForUpdate(arr, userInput);
+			} while (validate != true) ; //end do/while
+
+			return newRestaurant;
+		}
+*/
+
+/*
 using System;
 using System.IO;
 
@@ -23,37 +51,176 @@ namespace MyApplication
 			return Console.ReadLine().ToUpper();
 		}
 		
-		//single array into two-dimensional array
-		static string[,] singleToDouble (string[] singleArray, int rowIndex, int columnIndex) {
-			//initialize variable
-			string[,] tempDouble = new string[rowIndex, columnIndex];
-			int rowCounter = 0;
-			int columnCounter = 0;
+		//parse even/odd indexes of single array into another single array
+		//for OPEN
+		static string[] parseArray (string[] singleArray, int zeroOrOne) {
+			//initialize variables
+			string[] tempArr = new string[((singleArray.Length)/2)];
+			int j = 0;
 
 			//loop through single array
 			for (int i = 0; i < singleArray.Length; i++) {
-				//if index is even, populate column 1
-				if (i % 2 == 0) {
-					tempDouble[rowCounter, columnCounter] = singleArray[i];
-					rowCounter++;
-				}
-
-				//else if index odd, populate column 2
-				else {
-					tempDouble[rowCounter, columnCounter] = singleArray[i];
-					
-					//toggle columnCounter between 1 and 0
-					if (columnCounter == 0) {
-						columnCounter = 1;
-					} else {
-						columnCounter = 0;
-					}
-
-				} //end if/else
-				Console.WriteLine(tempDouble[rowCounter, columnCounter]);
+				//parse even/odd elements into temp array
+				if (i % 2 == zeroOrOne) {
+					tempArr[j] = singleArray[i];
+					j++;
+				} //end if
 			} //end for
 
-			return tempDouble;
+			//return parsed array
+			return tempArr;
+		}
+
+		//print contents of each array
+		//for READ
+		static void printArrays (string[] arr1, string[] arr2) {
+			//loop through each array; only print elements with info
+				for (int i = 0; i < arr1.Length; i++) {
+						//stop loop if element is empty
+						if (arr1[i] == null) {
+							break;
+						} else if ( arr1[i] == "") {
+							break;
+						} //end if/else
+						
+						//if element has contents, then print them to the console
+						Console.WriteLine($"{arr1[i]} Rating: {arr2[i]}");
+				} //end for
+		}
+
+		//validate user input (lo and hi)
+    static int ValidateInput(string userInput, int low, int high) {
+        //convert string to int
+				int inputInt = Convert.ToInt16(userInput);
+
+				//if incorrect   
+        if (inputInt < low || inputInt > high) {
+						return 0;
+        } 
+        //if correct
+        else {
+            return 1;
+        }
+    }
+
+		//verify whether array is full
+		//for CREATE
+		static int IsArrayFull(string[] array) {
+			//count how many active records in array
+			int validCount = 0;
+			for (int i = 0; i < array.Length; i++) {
+				if (array[i] != "" && array[i] != null) {
+					validCount+=2;;
+				} //end if
+			} //end for
+
+			return validCount;
+		}
+
+		//add entry to first empty slot in arrays
+		//for CREATE
+		static string[] CreateNewEntryInArray(string[] array, string newEntry) {
+			//initialize variable
+			bool created = false; 
+			for (int i = 0; i < array.Length; i++) {
+				if ((array[i] == null || array[i] == "") && created == false) {
+					array[i] = newEntry;
+					created = true;
+				} //end if
+			} //end for
+			
+			return array;
+		}
+
+		//ask user for rating and validate
+		//for CREATE and UPDATE
+		static string askValidateRating(string question) {
+
+			//initialize variables
+			string newRating;
+			int validate = 0;
+			bool firstPass = true;
+
+			//ask user for rating, and validate that input is within range
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Woops, wrong input.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				newRating = Console.ReadLine();
+				validate = ValidateInput(newRating, 0, 5);
+			} while (validate != 1) ; //end do/while
+
+			return newRating;
+		}
+
+		//combine two arrays into a single array
+		//for SAVE
+		static string[] CombineTwoIntoOneArray(string[] arr1, string[] arr2) {
+			//initialize variables
+			string[] tempArray = new string[((arr1.Length)*2)];
+			int j = 0;
+			int k = 0;
+
+			//combine two arrays together
+			for (int i = 0; i < tempArray.Length; i++) {
+				//if even index, populate element with restaurant
+				if (i % 2 == 0) {
+					tempArray[i] = arr1[j];
+					j++;
+				}
+
+				//if odd index, populate element with rating
+				else if (i % 2 == 1) {
+					tempArray[i] = arr2[k];
+					k++;
+				} //end if/else
+			} //end for
+
+			return tempArray;
+		}
+
+		//validate restaurant
+		//for UPDATE
+		static bool validateEntryForUpdate(string[] arr, string userInput) {
+			//initialize variables
+			bool matches = false;
+
+			//loop through array, trying to find a match
+			for (int i = 0; i < arr.Length; i++) {
+				if (arr[i] == userInput) {
+					matches = true;
+					return matches;
+				} //end if
+			} //end for
+			
+			return matches;
+		}
+
+
+		
+		//update rating
+		//for UPDATE
+		static string[] updateRating(string[] arr1, string[] arr2, string userIndex, string updatedInput) {
+			//initialize variable
+			int tempIndex = 0;
+			
+			//loop through arr1 and tag the index specified by user
+			for (int i = 0; i < arr1.Length; i++) {
+				if (arr1[i] == userIndex) {
+					tempIndex = i;
+					break;
+				} //end if
+			} //end for
+
+			//update arr2
+			arr2[tempIndex] = updatedInput;
+
+			return arr2;
 		}
 
 		static void Main(string[] args)
@@ -61,10 +228,10 @@ namespace MyApplication
 			//declare variables
 			bool userChoice;
 			string userChoiceString;
-			int rowMax = 25;
-			int columnMax = 2;
+			int arrLength = 25;
 			string fileName = "restRate.txt";
-			string[,] restRateArr = new string[rowMax, columnMax];
+			string[] restaurantArr = new string[arrLength];
+			string[] ratingArr = new string[arrLength];
 
 			//repeat till user quits
 			do {
@@ -93,7 +260,7 @@ namespace MyApplication
 				} while (!userChoice) ; //end inner do
 
 				//logic for individual user choices
-				//O - OPEN
+				//O - OPEN - COMPLETE
 				if (userChoiceString == "O") {
 					Console.WriteLine("OPEN FILE");
 
@@ -113,44 +280,89 @@ namespace MyApplication
 					} //end using
 
 					//split tempArray into two-dimensional array (to use elsewhere in app)
-					restRateArr = singleToDouble(tempArray, rowMax, columnMax);
+					restaurantArr = parseArray(tempArray, 0);
+					ratingArr = parseArray(tempArray, 1);
 
 					//give user status update
 					Console.WriteLine("File successfully opened.");
 				}
 
-				//S - SAVE
+				//S - SAVE - COMPLETE
 				else if (userChoiceString == "S") {
 					Console.WriteLine("SAVE FILE");
 
+					//combine two arrays into a single array 
+					string[] tempArray = CombineTwoIntoOneArray(restaurantArr, ratingArr);
+
+					//save contents of array to file
+					//each element of array gets new line in file
+					File.WriteAllLines(fileName, tempArray);
+
 				}
 
-				//C - CREATE
+				//C - CREATE - COMPLETE
 				else if (userChoiceString == "C") {
-					Console.WriteLine("CREATE NEW RESTAURANT");
+					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
+
+					int validCount = IsArrayFull(restaurantArr);
+
+					//if array is full, tell user they can't create new entry
+					if (validCount >= arrLength) {
+						Console.WriteLine($"File contains {validCount} records and is full. Delete an entry before adding a new one.");
+					}
+
+					// else if array has space, prompt user for new entry info, then save to arrays
+					else {
+						Console.WriteLine("Enter a new restaurant");
+						string newRestaurant = Console.ReadLine();
+						
+						//ask for rating and validate input is within range
+						string question = "Rate Restaurant (0 to 5)";
+						string newRating = askValidateRating(question);
+
+						restaurantArr = CreateNewEntryInArray(restaurantArr, newRestaurant);
+						ratingArr = CreateNewEntryInArray(ratingArr, newRating);
+					} //end if/else
 
 				}
 
-				//R - READ/PRINT
+				//R - READ/PRINT - COMPLETE
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ FILE");
 
+					//print contents of each array to user
+					printArrays(restaurantArr, ratingArr);
+
 				}
 
-				//U - UPDATE
+				//U - UPDATE - OPTIONAL
 				else if (userChoiceString == "U") {
 					Console.WriteLine("UPDATE RATING");
 
+					Console.WriteLine("Which restaurant would you like to update?");
+					string restaurant = Console.ReadLine();
+					//CE VALIDATION: RESTAURANT DOESN'T MATCH ARRAY
+
+					bool matchingRestaurant = validateEntryForUpdate(restaurantArr, restaurant);
+
+
+					//ask for rating and validate input is within range
+					string question = $"Update Rating for {restaurant} (0 to 5)";
+					string updatedRating = askValidateRating(question);
+
+					//update rating
+					ratingArr = updateRating(restaurantArr, ratingArr, restaurant, updatedRating);
 				}
 
-				//D - DELETE
+				//D - DELETE - OPTIONAL
 				else if (userChoiceString == "D") {
 					Console.WriteLine("DELETE RESTAURANT");
 
 				}
 
-				//Q - QUIT
+				//Q - QUIT - COMPLETE
 				else {
+					Console.WriteLine("QUIT PROGRAM");
 					Console.WriteLine("~~~Adios Sayōnara Goodbye Chao Mae Alsalama~~~");
 				} //end if/else
 

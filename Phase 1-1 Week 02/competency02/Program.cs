@@ -104,7 +104,7 @@ namespace MyApplication
 		}
 
 		//ask user for rating and validate
-		//for CREATE
+		//for CREATE and UPDATE
 		static string askValidateRating(string question) {
 
 			//initialize variables
@@ -150,10 +150,48 @@ namespace MyApplication
 					tempArray[i] = arr2[k];
 					k++;
 				} //end if/else
-				Console.WriteLine("temp array element: " + tempArray[i]);
 			} //end for
 
 			return tempArray;
+		}
+
+		//validate restaurant
+		//for UPDATE
+		static bool validateEntryForUpdate(string[] arr, string userInput) {
+			//initialize variables
+			bool matches = false;
+
+			//loop through array, trying to find a match
+			for (int i = 0; i < arr.Length; i++) {
+				if (arr[i] == userInput) {
+					matches = true;
+					return matches;
+				} //end if
+			} //end for
+			
+			return matches;
+		}
+
+
+		
+		//update rating
+		//for UPDATE
+		static string[] updateRating(string[] arr1, string[] arr2, string userIndex, string updatedInput) {
+			//initialize variable
+			int tempIndex = 0;
+			
+			//loop through arr1 and tag the index specified by user
+			for (int i = 0; i < arr1.Length; i++) {
+				if (arr1[i] == userIndex) {
+					tempIndex = i;
+					break;
+				} //end if
+			} //end for
+
+			//update arr2
+			arr2[tempIndex] = updatedInput;
+
+			return arr2;
 		}
 
 		static void Main(string[] args)
@@ -272,6 +310,19 @@ namespace MyApplication
 				else if (userChoiceString == "U") {
 					Console.WriteLine("UPDATE RATING");
 
+					Console.WriteLine("Which restaurant would you like to update?");
+					string restaurant = Console.ReadLine();
+					//CE VALIDATION: RESTAURANT DOESN'T MATCH ARRAY
+
+					bool matchingRestaurant = validateEntryForUpdate(restaurantArr, restaurant);
+
+
+					//ask for rating and validate input is within range
+					string question = $"Update Rating for {restaurant} (0 to 5)";
+					string updatedRating = askValidateRating(question);
+
+					//update rating
+					ratingArr = updateRating(restaurantArr, ratingArr, restaurant, updatedRating);
 				}
 
 				//D - DELETE - OPTIONAL

@@ -1,4 +1,5 @@
-﻿using System;
+/*
+using System;
 using System.IO;
 
 namespace MyApplication
@@ -22,35 +23,48 @@ namespace MyApplication
 			return Console.ReadLine().ToUpper();
 		}
 		
-		//parse even/odd indexes of single array into another single array
-		static string[] parseArray (string[] singleArray, int zeroOrOne) {
-			//initialize variables
-			string[] tempArr = new string[((singleArray.Length)/2)];
-			int j = 0;
+		//single array into two-dimensional array
+		static string[,] singleToDouble (string[] singleArray, int rowIndex, int columnIndex) {
+			//initialize variable
+			string[,] tempDouble = new string[rowIndex, columnIndex];
+			int rowCounter = 0;
+			int columnCounter = 0;
 
 			//loop through single array
 			for (int i = 0; i < singleArray.Length; i++) {
-				//parse even/odd elements into temp array
-				if (i % 2 == zeroOrOne) {
-					tempArr[j] = singleArray[i];
-					j++;
-				} //end if
+				//if index is even, populate column 1
+				if (i % 2 == 0) {
+					tempDouble[rowCounter, columnCounter] = singleArray[i];
+					rowCounter++;
+				}
+
+				//else if index odd, populate column 2
+				else {
+					tempDouble[rowCounter, columnCounter] = singleArray[i];
+					
+					//toggle columnCounter between 1 and 0
+					if (columnCounter == 0) {
+						columnCounter = 1;
+					} else {
+						columnCounter = 0;
+					}
+
+				} //end if/else
+				Console.WriteLine(tempDouble[rowCounter, columnCounter]);
 			} //end for
 
-			//return parsed array
-			return tempArr;
+			return tempDouble;
 		}
-
 
 		static void Main(string[] args)
     {
 			//declare variables
 			bool userChoice;
 			string userChoiceString;
-			int arrLength = 25;
+			int rowMax = 25;
+			int columnMax = 2;
 			string fileName = "restRate.txt";
-			string[] restaurantArr = new string[arrLength];
-			string[] ratingArr = new string[arrLength];
+			string[,] restRateArr = new string[rowMax, columnMax];
 
 			//repeat till user quits
 			do {
@@ -99,8 +113,7 @@ namespace MyApplication
 					} //end using
 
 					//split tempArray into two-dimensional array (to use elsewhere in app)
-					restaurantArr = parseArray(tempArray, 0);
-					ratingArr = parseArray(tempArray, 1);
+					restRateArr = singleToDouble(tempArray, rowMax, columnMax);
 
 					//give user status update
 					Console.WriteLine("File successfully opened.");
@@ -145,3 +158,4 @@ namespace MyApplication
     } //end main
   } //end class
 } //end namespace
+*/

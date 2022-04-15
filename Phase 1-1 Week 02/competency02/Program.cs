@@ -129,6 +129,33 @@ namespace MyApplication
 			return newRating;
 		}
 
+		//combine two arrays into a single array
+		//for SAVE
+		static string[] CombineTwoIntoOneArray(string[] arr1, string[] arr2) {
+			//initialize variables
+			string[] tempArray = new string[((arr1.Length)*2)];
+			int j = 0;
+			int k = 0;
+
+			//combine two arrays together
+			for (int i = 0; i < tempArray.Length; i++) {
+				//if even index, populate element with restaurant
+				if (i % 2 == 0) {
+					tempArray[i] = arr1[j];
+					j++;
+				}
+
+				//if odd index, populate element with rating
+				else if (i % 2 == 1) {
+					tempArray[i] = arr2[k];
+					k++;
+				} //end if/else
+				Console.WriteLine("temp array element: " + tempArray[i]);
+			} //end for
+
+			return tempArray;
+		}
+
 		static void Main(string[] args)
     {
 			//declare variables
@@ -193,13 +220,20 @@ namespace MyApplication
 					Console.WriteLine("File successfully opened.");
 				}
 
-				//S - SAVE
+				//S - SAVE - COMPLETE
 				else if (userChoiceString == "S") {
 					Console.WriteLine("SAVE FILE");
 
+					//combine two arrays into a single array 
+					string[] tempArray = CombineTwoIntoOneArray(restaurantArr, ratingArr);
+
+					//save contents of array to file
+					//each element of array gets new line in file
+					File.WriteAllLines(fileName, tempArray);
+
 				}
 
-				//C - CREATE
+				//C - CREATE - COMPLETE
 				else if (userChoiceString == "C") {
 					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
 

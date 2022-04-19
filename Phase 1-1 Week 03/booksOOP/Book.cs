@@ -40,6 +40,5 @@ namespace MyApplication
 		public override string ToString() {
 			return $"    Read {Title} by {Author} in {YearRead}\n    Thoughts: {Notes}\n";
 		}
-
   } //end class book
 } //end namespace myapp

@@ -8,5 +8,5 @@ namespace MyApplication
     {
 			
     } //end Main
-  } //end class
-} //end namespace
+  } //end class Program
+} //end namespace MyApp

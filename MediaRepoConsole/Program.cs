@@ -6,28 +6,21 @@ namespace MyApplication
   {
     static void Main(string[] args)
     {
-			//create a book entry
-			var bookListEntry = new List<KeyValuePair<string, string>>();
+			//create array
+			int arrayLength = 10;
+			Book[] books = new Book[arrayLength];
 
-			bookListEntry.Add(new KeyValuePair<string, string>("title", "Children of Time"));
-			bookListEntry.Add(new KeyValuePair<string, string>("title", "Old Jules"));
-			bookListEntry.Add(new KeyValuePair<string, string>("title", "Foundation"));
-
-			foreach (var val in bookListEntry) {
-				Console.WriteLine(val);
-			}
-			
-			/*
-			{
-				"title": "",
-				"authorFirst": "", 
-				"authorLast": "",
-				"published": "", 
-				"genre": "",
-				"yearConsumed": "",
-				"notes": ""
+			for (int i = 0; i < books.Length; i++) {
+				books[i] = new Book();
 			};
-			*/
+
+			books[0].Title = "Old Jules";
+			books[0].Author = "Mari Sandoz";
+			books[0].YearConsumed = 2022;
+			books[0].YearCreated = 1935;
+			books[0].Notes = "unromaticized depiction of early-settlement times in western Nebraska";
+
+			Console.WriteLine(books[0]);
 
     } //end main
   } //end class

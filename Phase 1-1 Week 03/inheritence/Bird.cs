@@ -12,7 +12,7 @@ namespace MyApplication
 		{ get; set; }
 
 		//default constructor
-		public Bird() {
+		public Bird(): base() {
 			//Species = "";
       //Weight = -1;
 			Wingspan = -1;
@@ -20,9 +20,9 @@ namespace MyApplication
 		}
 
 		//override constructor
-		public Bird (string newSpecies, int newWeight, int newWingspan, int newFlightspeed) {
-			Species = newSpecies;
-      Weight = newWeight;
+		public Bird (string newSpecies, int newWeight, int newWingspan, int newFlightspeed): base(newSpecies, newWeight) {
+			//Species = newSpecies;
+      //Weight = newWeight;
 			Wingspan = newWingspan;
 			FlightSpeed = newFlightspeed;
 		}

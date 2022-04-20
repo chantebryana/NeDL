@@ -11,9 +11,6 @@ namespace MyApplication
 		public int YearConsumed 
     { get; set; }
 
-		public int YearCreated 
-    { get; set; }
-
 		public string Notes 
     { get; set; }
 
@@ -21,15 +18,13 @@ namespace MyApplication
 		public Media() {
 			Title = "";
 			YearConsumed = -1;
-			YearCreated = -1;
 			Notes = "";
 		}
 
 		//override constructor
-		public Media(string newTitle, int newYearConsumed, int newYearCreated, string newNotes) {
+		public Media(string newTitle, int newYearConsumed, string newNotes) {
 			Title = newTitle;
 			YearConsumed = newYearConsumed;
-			YearCreated = newYearCreated;
 			Notes = newNotes;
 		}
 

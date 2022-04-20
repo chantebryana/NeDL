@@ -14,17 +14,13 @@ namespace MyApplication
 		}
 
 		//override constructor
-		public Book(string newTitle, int newYearConsumed, int newYearCreated, string newNotes, string newAuthor) {
-			Title = newTitle;
-			YearConsumed = newYearConsumed;
-			YearCreated = newYearCreated;
-			Notes = newNotes;
+		public Book(string newTitle, int newYearConsumed, string newNotes, string newAuthor): base(newTitle, newYearConsumed, newNotes) {
 			Author = newAuthor;
 		}
 
 		//override tostring for printing
 		public override string ToString() {
-			return $"Title: {Title}\nAuthor: {Author}\nYear Created: {YearCreated}\nYear Consumed: {YearConsumed}\nNotes: {Notes}";
+			return $"\n**BOOKS**\nTitle: {Title}\nAuthor: {Author}\nYear Consumed: {YearConsumed}\nNotes: {Notes}";
 		}
 
 

@@ -231,25 +231,29 @@ namespace MyApplication
 				} while (!userChoice) ; //end inner do
 
 				//logic for individual user choices
-				//O - OPEN - COMPLETE
+				//O - OPEN
 				if (userChoiceString == "O") {
 					Console.WriteLine("OPEN FILE");
+
+					Employee employeeTest = new Employee("Earthwell", "Chante", 's');
+					Console.WriteLine(employeeTest);
+					employeeTest.CalculateBonus(employeeTest.EmployeeType);
 				}
 
-				//S - SAVE - COMPLETE
+				//S - SAVE
 				else if (userChoiceString == "S") {
 					Console.WriteLine("SAVE FILE");
 
 
 				}
 
-				//C - CREATE - COMPLETE
+				//C - CREATE
 				else if (userChoiceString == "C") {
 					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
 
 				}
 
-				//R - READ/PRINT - COMPLETE
+				//R - READ/PRINT
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ FILE");
 

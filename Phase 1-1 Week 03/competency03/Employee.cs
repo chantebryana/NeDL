@@ -30,9 +30,9 @@ namespace MyApplication
 		}
 
 		//method to calculate the bonus, based on whether employee is hourly or salary
-		public virtual int CalculateBonus (char newType) {
-			Console.WriteLine($"Employee Type: {newType}");
-			return -1;
+		public virtual double CalculateBonus (int baseRate) {
+			Console.WriteLine("Calculate Bonus inside Employee Class. Returns 0.");
+			return 0.00;
 		}
 
 		//override tostring for printing

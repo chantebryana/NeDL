@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 
 namespace MyApplication
 {
@@ -237,13 +238,18 @@ namespace MyApplication
 
 					Employee employeeTest = new Employee("Earthwell", "Chante", 's');
 					Console.WriteLine(employeeTest);
-					employeeTest.CalculateBonus(employeeTest.EmployeeType);
+					employeeTest.CalculateBonus(3);
 				}
 
 				//S - SAVE
 				else if (userChoiceString == "S") {
 					Console.WriteLine("SAVE FILE");
 
+					Salary salaryTest = new Salary("Stone", "Aurora", 'S', 30000);
+					Console.WriteLine(salaryTest);
+					double sBonusTest = salaryTest.CalculateBonus(salaryTest.AnnualSalary);
+					string sBonusUSD = sBonusTest.ToString("C", CultureInfo.CurrentCulture);
+					Console.WriteLine($"Bonus: {sBonusUSD}");
 
 				}
 
@@ -251,6 +257,11 @@ namespace MyApplication
 				else if (userChoiceString == "C") {
 					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
 
+					Hourly hourlyTest = new Hourly("Stone", "Aurora", 'h', 30);
+					Console.WriteLine(hourlyTest);
+					double hBonusTest = hourlyTest.CalculateBonus(hourlyTest.HourlyRate);
+					string hBonusUSD = hBonusTest.ToString("C", CultureInfo.CurrentCulture);
+					Console.WriteLine($"Bonus: {hBonusUSD}");
 				}
 
 				//R - READ/PRINT

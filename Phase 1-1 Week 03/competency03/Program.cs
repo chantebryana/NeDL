@@ -39,44 +39,47 @@ namespace MyApplication
 			return array;
 		}
 
-		/* //parse every 4th index of single string[] array into another Employee[] array
+		//insert hourly-type contents of single string[] array into Hourly[] array
 		//for OPEN
-		static Employee[] parseArray (string[] singleArray) {
-			//initialize variables
-			//Employee[] tempArr = new Employee[((singleArray.Length)/4)];
-			int j = 0;
-			Employee[] tempArr = new Employee[25];
-			
-			//set individual elements of temp array to Employees object
-			tempArr = setToObject(tempArr);
-			
+		static Hourly[] singleArrayToHourlyArray (Hourly[] hrArr, string[] singleArr) {
 
-			//loop through single array
-			for (int i = 0; i < singleArray.Length; i++) {
-				//if index % 4 == 0, push to LastName class object
-				if (i % 4 == 0) {
-					tempArr[j].LastName = singleArray[i];
-				} 
-				//first name
-				else if (i % 4 == 1) {
-					tempArr[j].FirstName = singleArray[i];
-				}
-				//employee type
-				else if (i % 4 == 2) {
-					tempArr[j].EmployeeType = char.Parse(singleArray[i]);
-				}
-				//hourly or salary
-				else if (i % 4 == 3) {
-					//CE fill out the final array element
-					Console.WriteLine(tempArr[j]);
-					j++;
-				}
-				//end if
-			} //end for
+			//initialize variable
+					int k = 0; //object array needs different tracker from tempArray
+					
+					//loop through temp array and assign elements to Hourly object array
+					for (int j = 0; j < singleArr.Length; j+=4) {
+						if (singleArr[(j+2)] == "H") {
+							hrArr[k].LastName = singleArr[j];
+							hrArr[k].FirstName = singleArr[j+1];
+							char tempType = char.Parse(singleArr[j+2]); //convert string to char
+							hrArr[k].EmployeeType = tempType; 
+							hrArr[k].HourlyRate = Convert.ToInt32(singleArr[j+3]); //convert string to int
+							k++; //iterate k by 1
+						}
+					}
+					return hrArr;
+		}
 
-			//return parsed array
-			return tempArr;
-		} */
+		//insert salary-type contents of single string[] array into Salary[] array
+		//for OPEN
+		static Salary[] singleArrayToSalaryArray (Salary[] sArr, string[] singleArr) {
+
+			//initialize variable
+					int k = 0; //object array needs different tracker from tempArray
+					
+					//loop through temp array and assign elements to Salary object array
+					for (int j = 0; j < singleArr.Length; j+=4) {
+						if (singleArr[(j+2)] == "S") {
+							sArr[k].LastName = singleArr[j];
+							sArr[k].FirstName = singleArr[j+1];
+							char tempType = char.Parse(singleArr[j+2]); //convert string to char
+							sArr[k].EmployeeType = tempType; 
+							sArr[k].AnnualSalary = Convert.ToInt32(singleArr[j+3]); //convert string to int
+							k++; //iterate k by 1
+						}
+					}
+					return sArr;
+		}
 
 		//print contents of each array
 		//for READ
@@ -277,50 +280,27 @@ namespace MyApplication
 					Console.WriteLine("OPEN FILE");
 
 					//initialize variables
-					string[] tempArray = new string[80];
+					string[] tempArray = new string[(arrLength * 8)];
 					int i = 0;
 					string s;
 
-					//read file; push contents into array
+					//read file; push contents into temporary array
 					using (StreamReader sr = File.OpenText(fileName)) {
 						//if file line isn't empty
 						//then push line contents to element of array
 						while ((s = sr.ReadLine()) != null) {
 							tempArray[i] = s;
 							i++;
-							//Console.WriteLine(s);
 						} //end while
 					} //end using
 
-					//insert contents of tempArray into bonusTable
-					//every 4th index of tempArray is next index of bonusTable
-					//(eg: tempArray[4] == bonusTable[1]; tempArray[8] == bonusTable[2])
-					//bonusTable = parseArray(tempArray);
+					//insert hourly-type contents of tempArray into hourlyBonusTable
+					hourlyBonusTable = singleArrayToHourlyArray(hourlyBonusTable, tempArray);
 
-					//initialize variable
-					int k = 0; //object array needs different tracker from tempArray
-					
-					//loop through temp array and assign elements to Hourly object array
-					for (int j = 0; j < tempArray.Length; j+=4) {
-						if (tempArray[(j+2)] == "H") {
-							Console.WriteLine(tempArray[(j+2)]);
-							Console.WriteLine("i: " + j);
-							Console.WriteLine("k: " + k);
-							hourlyBonusTable[k].LastName = tempArray[j];
-							hourlyBonusTable[k].FirstName = tempArray[j+1];
-							char tempType = char.Parse(tempArray[j+2]); //convert string to char
-							hourlyBonusTable[k].EmployeeType = tempType; 
-							hourlyBonusTable[k].HourlyRate = Convert.ToInt16(tempArray[j+3]); //convert string to int
-							Console.WriteLine(hourlyBonusTable[k]);
-							k++; //iterate k by 1
-						}
-					}
+					//insert salary-type contents of tempArray into salaryBonusTable
+					salaryBonusTable = singleArrayToSalaryArray(salaryBonusTable, tempArray);
 
 					Console.WriteLine("File successfully opened.");
-
-					Employee employeeTest = new Employee("Earthwell", "Chante", 's');
-					Console.WriteLine(employeeTest);
-					employeeTest.CalculateBonus(3);
 				}
 
 				//S - SAVE

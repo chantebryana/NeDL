@@ -264,25 +264,40 @@ namespace MyApplication
 
 		//combine two arrays into a single array
 		//for SAVE
-		static string[] CombineTwoIntoOneArray(string[] arr1, string[] arr2) {
+		static string[] CombineTwoIntoOneArray(Hourly[] arr1, Salary[] arr2) {
 			//initialize variables
-			string[] tempArray = new string[((arr1.Length)*2)];
+			string[] tempArray = new string[((arr1.Length)*8)];
+			int ii = 0;
 			int j = 0;
 			int k = 0;
+			bool reachEndofArr = false;
 
 			//combine two arrays together
-			for (int i = 0; i < tempArray.Length; i++) {
-				//if even index, populate element with restaurant
-				if (i % 2 == 0) {
-					tempArray[i] = arr1[j];
-					j++;
-				}
+			for (int i = 0; i < tempArray.Length; i+=4) {
+				//first, populate elements of temp array with elements of Hourly array
+				//end when hourly array has no active records
+				do {
+					Console.WriteLine("element: " + arr1[i].LastName + "; i =  " + i);
+					if (arr1[i].LastName != null || arr1[i].LastName != "") {
+						reachEndofArr = true;
+					} else {
+						ii = i;
+						tempArray[ii] = arr1[j].LastName;
+						tempArray[ii++] = arr1[j].FirstName;
+						tempArray[ii++] = (arr1[j].EmployeeType).ToString();
+						tempArray[ii++] = (arr1[j].HourlyRate).ToString();
+						j++;
+					}
+					
+				} while (reachEndofArr != true) ;
 
-				//if odd index, populate element with rating
-				else if (i % 2 == 1) {
-					tempArray[i] = arr2[k];
-					k++;
-				} //end if/else
+				//populate remaining elements of temp array with elements of Salary array
+				ii = i;
+				tempArray[ii] = arr2[k].LastName;
+				tempArray[ii++] = arr2[k].FirstName;
+				tempArray[ii++] = (arr2[k].EmployeeType).ToString();
+				tempArray[ii++] = (arr2[k].AnnualSalary).ToString();
+				k++;
 			} //end for
 
 			return tempArray;
@@ -401,11 +416,12 @@ namespace MyApplication
 				else if (userChoiceString == "S") {
 					Console.WriteLine("SAVE FILE");
 
-					Salary salaryTest = new Salary("Stone", "Aurora", 'S', 30000);
-					Console.WriteLine(salaryTest);
-					double sBonusTest = salaryTest.CalculateBonus(salaryTest.AnnualSalary);
-					string sBonusUSD = sBonusTest.ToString("C", CultureInfo.CurrentCulture);
-					Console.WriteLine($"Bonus: {sBonusUSD}");
+					//combine two arrays into a single array 
+					string[] tempArray = CombineTwoIntoOneArray(hourlyBonusTable, salaryBonusTable);
+
+					//save contents of array to file
+					//each element of array gets new line in file
+					File.WriteAllLines(fileName, tempArray);
 
 				}
 

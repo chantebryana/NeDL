@@ -136,28 +136,99 @@ namespace MyApplication
         }
     }
 
-		//verify whether array is full
+		//validate user input (H or S)
+    static int ValidateInput(string userInput) {
+				//if correct   
+        if (userInput == "H" || userInput == "S") {
+						return 1;
+        } 
+        //if incorrect
+        else {
+            return 0;
+        }
+    }
+
+		//ask user which employee type (H or S) they want to create new data for
 		//for CREATE
-		static int IsArrayFull(string[] array) {
+		static string askUserEmployeeType (string question) {
+			//initialize variables
+			bool firstPass = true;
+			string employeeType = "";
+			int validate = 0;
+
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Woops, wrong input.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				employeeType = (Console.ReadLine()).ToUpper(); //set to uppercase to standardize user input
+				validate = ValidateInput(employeeType);
+			} while (validate != 1); //end do/while
+
+			return employeeType;
+		}
+
+		//verify whether Hourly array is full
+		//for CREATE
+		static int IsArrayFull(Hourly[] array) {
 			//count how many active records in array
 			int validCount = 0;
 			for (int i = 0; i < array.Length; i++) {
-				if (array[i] != "" && array[i] != null) {
-					validCount+=2;;
+				if (array[i].LastName != "" && array[i].LastName != null) {
+					validCount++;
 				} //end if
 			} //end for
 
 			return validCount;
 		}
 
-		//add entry to first empty slot in arrays
+		//verify whether Salary array is full
 		//for CREATE
-		static string[] CreateNewEntryInArray(string[] array, string newEntry) {
+		static int IsArrayFull(Salary[] array) {
+			//count how many active records in array
+			int validCount = 0;
+			for (int i = 0; i < array.Length; i++) {
+				if (array[i].LastName != "" && array[i].LastName != null) {
+					validCount++;
+				} //end if
+			} //end for
+
+			return validCount;
+		}
+
+		//add entry to first empty slot in Hourly array
+		//for CREATE
+		static Hourly[] CreateNewEntryInArray(Hourly[] array, string lName, string fName, string eType, int hrPay) {
 			//initialize variable
 			bool created = false; 
 			for (int i = 0; i < array.Length; i++) {
-				if ((array[i] == null || array[i] == "") && created == false) {
-					array[i] = newEntry;
+				if ((array[i].LastName == null || array[i].LastName == "") && created == false) {
+					array[i].LastName = lName;
+					array[i].FirstName = fName;
+					array[i].EmployeeType = Char.Parse(eType);
+					array[i].HourlyRate = hrPay;
+					created = true;
+				} //end if
+			} //end for
+			
+			return array;
+		}
+
+		//add entry to first empty slot in Salary array
+		//for CREATE
+		static Salary[] CreateNewEntryInArray(Salary[] array, string lName, string fName, string eType, int annualPay) {
+			//initialize variable
+			bool created = false; 
+			for (int i = 0; i < array.Length; i++) {
+				if ((array[i].LastName == null || array[i].LastName == "") && created == false) {
+					array[i].LastName = lName;
+					array[i].FirstName = fName;
+					array[i].EmployeeType = Char.Parse(eType);
+					array[i].AnnualSalary = annualPay;
 					created = true;
 				} //end if
 			} //end for
@@ -338,15 +409,57 @@ namespace MyApplication
 
 				}
 
-				//C - CREATE
+				//C - CREATE - COMPLETE
 				else if (userChoiceString == "C") {
-					Console.WriteLine("CREATE NEW RESTAURANT AND RATING");
+					Console.WriteLine("CREATE NEW ENTRY");
 
-					Hourly hourlyTest = new Hourly("Stone", "Aurora", 'h', 30);
-					Console.WriteLine(hourlyTest);
-					double hBonusTest = hourlyTest.CalculateBonus(hourlyTest.HourlyRate);
-					string hBonusUSD = hBonusTest.ToString("C", CultureInfo.CurrentCulture);
-					Console.WriteLine($"Bonus: {hBonusUSD}");
+					//ask user which employee type they want to create new data for
+					string question = "Hourly ('H') or Salary ('S')?";
+					string employeeType = askUserEmployeeType(question);
+
+					//use validCount to check whether array of correct type is full
+					int validCount = 0;
+					//if hourly
+					if (employeeType == "H") {
+						validCount = IsArrayFull(hourlyBonusTable);
+					} 
+					//if salary
+					else {
+						validCount = IsArrayFull(salaryBonusTable);
+					}
+
+					//if array is full, tell user they can't create new entry
+					if (validCount >= arrLength) {
+						Console.WriteLine($"File contains {validCount} Employee records and is full. Delete an entry before adding a new one.");
+					}
+					// else if array has space, prompt user for new entry info, then save to arrays
+					else {
+						Console.WriteLine("Enter Employee's Last Name");
+						string lastName = Console.ReadLine();
+
+						Console.WriteLine("Enter Employee's First Name");
+						string firstName = Console.ReadLine();
+
+						//different wage questions depending on employee type
+						//while i'm in my final loop, also push new user input into correct array
+						//if Hourly employee
+						if (employeeType == "H") {
+							Console.WriteLine("Enter hour pay rate (as a whole number)");
+							int hrRate = Convert.ToInt32(Console.ReadLine());
+
+							//PUSH TO ARRAY
+							hourlyBonusTable = CreateNewEntryInArray(hourlyBonusTable, lastName, firstName, employeeType, hrRate);
+						}
+						//else if Salary employee
+						else {
+							Console.WriteLine("Enter annual salary (as a whole number)");
+							int salary = Convert.ToInt32(Console.ReadLine());
+
+							//PUSH TO ARRAY
+							salaryBonusTable = CreateNewEntryInArray(salaryBonusTable, lastName, firstName, employeeType, salary);
+						}
+					} //end if/else
+					
 				}
 
 				//R - READ/PRINT - COMPLETE

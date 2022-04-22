@@ -23,15 +23,23 @@ namespace MyApplication
 			return Console.ReadLine().ToUpper();
 		}
 		
-		//instantiate individual elements of array to Employees object
-		static Employee[] setToObject (Employee[] array) {
+		//instantiate individual elements of array to Hourly object
+		static Hourly[] setToObject (Hourly[] array) {
 			for (int i = 0; i < array.Length; i++) {
-				array[i] = new Employee();
+				array[i] = new Hourly();
 			}
 			return array;
 		}
 
-		//parse every 4th index of single string[] array into another Employee[] array
+		//instantiate individual elements of array to Salary object
+		static Salary[] setToObject (Salary[] array) {
+			for (int i = 0; i < array.Length; i++) {
+				array[i] = new Salary();
+			}
+			return array;
+		}
+
+		/* //parse every 4th index of single string[] array into another Employee[] array
 		//for OPEN
 		static Employee[] parseArray (string[] singleArray) {
 			//initialize variables
@@ -68,7 +76,7 @@ namespace MyApplication
 
 			//return parsed array
 			return tempArr;
-		}
+		} */
 
 		//print contents of each array
 		//for READ
@@ -227,12 +235,15 @@ namespace MyApplication
 			//declare and initialize variables
 			bool userChoice;
 			string userChoiceString;
-			int arrLength = 100;
+			int arrLength = 10;
 			string fileName = "Employees.txt";
-			Employee[] bonusTable = new Employee[arrLength];
+			//Employee[] bonusTable = new Employee[arrLength]; //CE COMMENT OUT
+			Hourly[] hourlyBonusTable = new Hourly[arrLength];
+			Salary[] salaryBonusTable = new Salary[arrLength];
 
-			//fill elements of array with Employee objects
-			bonusTable = setToObject(bonusTable);
+			//fill elements of arrays with objects of respective types (Hourly or Salary)
+			hourlyBonusTable = setToObject(hourlyBonusTable);
+			salaryBonusTable = setToObject(salaryBonusTable);
 
 			//repeat till user quits
 			do {
@@ -266,7 +277,7 @@ namespace MyApplication
 					Console.WriteLine("OPEN FILE");
 
 					//initialize variables
-					string[] tempArray = new string[50];
+					string[] tempArray = new string[80];
 					int i = 0;
 					string s;
 
@@ -284,7 +295,26 @@ namespace MyApplication
 					//insert contents of tempArray into bonusTable
 					//every 4th index of tempArray is next index of bonusTable
 					//(eg: tempArray[4] == bonusTable[1]; tempArray[8] == bonusTable[2])
-					bonusTable = parseArray(tempArray);
+					//bonusTable = parseArray(tempArray);
+
+					//initialize variable
+					int k = 0; //object array needs different tracker from tempArray
+					
+					//loop through temp array and assign elements to Hourly object array
+					for (int j = 0; j < tempArray.Length; j+=4) {
+						if (tempArray[(j+2)] == "H") {
+							Console.WriteLine(tempArray[(j+2)]);
+							Console.WriteLine("i: " + j);
+							Console.WriteLine("k: " + k);
+							hourlyBonusTable[k].LastName = tempArray[j];
+							hourlyBonusTable[k].FirstName = tempArray[j+1];
+							char tempType = char.Parse(tempArray[j+2]); //convert string to char
+							hourlyBonusTable[k].EmployeeType = tempType; 
+							hourlyBonusTable[k].HourlyRate = Convert.ToInt16(tempArray[j+3]); //convert string to int
+							Console.WriteLine(hourlyBonusTable[k]);
+							k++; //iterate k by 1
+						}
+					}
 
 					Console.WriteLine("File successfully opened.");
 

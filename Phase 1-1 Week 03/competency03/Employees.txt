@@ -6,3 +6,11 @@ Stone
 Aurora
 H
 30
+Bonkers
+Chompy
+H
+45
+Lucy
+Chauncilay
+S
+65000

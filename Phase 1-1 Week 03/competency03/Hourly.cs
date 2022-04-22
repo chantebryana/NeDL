@@ -23,7 +23,7 @@ namespace MyApplication
 		//method to calculate the bonus, based on whether employee is hourly or salary
 		//hourly rate bonus is two weeks' pay
 		public override double CalculateBonus (int baseRate) {
-			Console.WriteLine("Calculate Bonus inside Hourly Class. Returns 2 weeks' pay.");
+			//Console.WriteLine("Calculate Bonus inside Hourly Class. Returns 2 weeks' pay.");
 			return (baseRate * 80.0);
 		}
 

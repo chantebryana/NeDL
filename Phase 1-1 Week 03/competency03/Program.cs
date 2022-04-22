@@ -83,19 +83,42 @@ namespace MyApplication
 
 		//print contents of each array
 		//for READ
-		static void printArrays (string[] arr1, string[] arr2) {
-			//loop through each array; only print elements with info
-				for (int i = 0; i < arr1.Length; i++) {
-						//stop loop if element is empty
-						if (arr1[i] == null) {
-							break;
-						} else if ( arr1[i] == "") {
-							break;
-						} //end if/else
-						
-						//if element has contents, then print them to the console
-						Console.WriteLine($"{arr1[i]} Rating: {arr2[i]}");
-				} //end for
+		static void printArrays (Hourly[] arr1, Salary[] arr2) {
+			//initialize variable for bonus calculations
+			double bonus = 0.00;
+			string bonusString = "";
+			
+			//loop through Hourly array; only print elements with info
+			for (int i = 0; i < arr1.Length; i++) {
+					//stop loop if element is empty
+					if (arr1[i].LastName == null) {
+						break;
+					} else if ( arr1[i].LastName == "") {
+						break;
+					} //end if/else
+					
+					//if element has contents, then print them to the console
+					Console.WriteLine(arr1[i]);
+					bonus = arr1[i].CalculateBonus(arr1[i].HourlyRate);
+					bonusString = bonus.ToString("C", CultureInfo.CurrentCulture);
+					Console.WriteLine($"    Bonus: {bonusString}");
+			} //end for
+
+			//loop through Salary array; only print elements with info
+			for (int i = 0; i < arr2.Length; i++) {
+					//stop loop if element is empty
+					if (arr2[i].LastName == null) {
+						break;
+					} else if ( arr2[i].LastName == "") {
+						break;
+					} //end if/else
+					
+					//if element has contents, then print them to the console
+					Console.WriteLine(arr2[i]);
+					bonus = arr2[i].CalculateBonus(arr2[i].AnnualSalary);
+					bonusString = bonus.ToString("C", CultureInfo.CurrentCulture);
+					Console.WriteLine($"    Bonus: {bonusString}");
+			} //end for
 		}
 
 		//validate user input (lo and hi)
@@ -275,7 +298,7 @@ namespace MyApplication
 				} while (!userChoice) ; //end inner do
 
 				//logic for individual user choices
-				//O - OPEN
+				//O - OPEN - COMPLETE
 				if (userChoiceString == "O") {
 					Console.WriteLine("OPEN FILE");
 
@@ -326,9 +349,12 @@ namespace MyApplication
 					Console.WriteLine($"Bonus: {hBonusUSD}");
 				}
 
-				//R - READ/PRINT
+				//R - READ/PRINT - COMPLETE
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ FILE");
+
+					//print contents of arrays onto console
+					printArrays(hourlyBonusTable, salaryBonusTable);
 
 				}
 

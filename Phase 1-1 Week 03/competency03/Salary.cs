@@ -23,7 +23,7 @@ namespace MyApplication
 		//method to calculate the bonus, based on whether employee is hourly or salary
 		//salary bonus is 10% of annual salary
 		public override double CalculateBonus (int baseRate) {
-			Console.WriteLine("Calculate Bonus inside Salary Class. Returns 10% of base salary.");
+			//Console.WriteLine("Calculate Bonus inside Salary Class. Returns 10% of base salary.");
 			return (baseRate * 0.10);
 		}
 

@@ -23,20 +23,47 @@ namespace MyApplication
 			return Console.ReadLine().ToUpper();
 		}
 		
-		//parse even/odd indexes of single array into another single array
+		//instantiate individual elements of array to Employees object
+		static Employee[] setToObject (Employee[] array) {
+			for (int i = 0; i < array.Length; i++) {
+				array[i] = new Employee();
+			}
+			return array;
+		}
+
+		//parse every 4th index of single string[] array into another Employee[] array
 		//for OPEN
-		static string[] parseArray (string[] singleArray, int zeroOrOne) {
+		static Employee[] parseArray (string[] singleArray) {
 			//initialize variables
-			string[] tempArr = new string[((singleArray.Length)/2)];
+			//Employee[] tempArr = new Employee[((singleArray.Length)/4)];
 			int j = 0;
+			Employee[] tempArr = new Employee[25];
+			
+			//set individual elements of temp array to Employees object
+			tempArr = setToObject(tempArr);
+			
 
 			//loop through single array
 			for (int i = 0; i < singleArray.Length; i++) {
-				//parse even/odd elements into temp array
-				if (i % 2 == zeroOrOne) {
-					tempArr[j] = singleArray[i];
+				//if index % 4 == 0, push to LastName class object
+				if (i % 4 == 0) {
+					tempArr[j].LastName = singleArray[i];
+				} 
+				//first name
+				else if (i % 4 == 1) {
+					tempArr[j].FirstName = singleArray[i];
+				}
+				//employee type
+				else if (i % 4 == 2) {
+					tempArr[j].EmployeeType = char.Parse(singleArray[i]);
+				}
+				//hourly or salary
+				else if (i % 4 == 3) {
+					//CE fill out the final array element
+					Console.WriteLine(tempArr[j]);
 					j++;
-				} //end if
+				}
+				//end if
 			} //end for
 
 			//return parsed array
@@ -197,13 +224,15 @@ namespace MyApplication
 
 		static void Main(string[] args)
     {
-			//declare variables
+			//declare and initialize variables
 			bool userChoice;
 			string userChoiceString;
-			int arrLength = 25;
-			string fileName = "restRate.txt";
-			string[] restaurantArr = new string[arrLength];
-			string[] ratingArr = new string[arrLength];
+			int arrLength = 100;
+			string fileName = "Employees.txt";
+			Employee[] bonusTable = new Employee[arrLength];
+
+			//fill elements of array with Employee objects
+			bonusTable = setToObject(bonusTable);
 
 			//repeat till user quits
 			do {
@@ -235,6 +264,29 @@ namespace MyApplication
 				//O - OPEN
 				if (userChoiceString == "O") {
 					Console.WriteLine("OPEN FILE");
+
+					//initialize variables
+					string[] tempArray = new string[50];
+					int i = 0;
+					string s;
+
+					//read file; push contents into array
+					using (StreamReader sr = File.OpenText(fileName)) {
+						//if file line isn't empty
+						//then push line contents to element of array
+						while ((s = sr.ReadLine()) != null) {
+							tempArray[i] = s;
+							i++;
+							//Console.WriteLine(s);
+						} //end while
+					} //end using
+
+					//insert contents of tempArray into bonusTable
+					//every 4th index of tempArray is next index of bonusTable
+					//(eg: tempArray[4] == bonusTable[1]; tempArray[8] == bonusTable[2])
+					bonusTable = parseArray(tempArray);
+
+					Console.WriteLine("File successfully opened.");
 
 					Employee employeeTest = new Employee("Earthwell", "Chante", 's');
 					Console.WriteLine(employeeTest);

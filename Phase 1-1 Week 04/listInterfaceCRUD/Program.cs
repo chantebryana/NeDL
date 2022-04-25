@@ -27,6 +27,31 @@ namespace listInterfaceCRUD
 				Console.WriteLine(anEmployee);
 			} //end foreach
 
+			//=============================================================
+			//experiment with reading (finding) and employee(s) in the list
+
+			//talk to human and save response
+			Console.WriteLine("Enter an employee Last Name to find: ");
+			string findName = Console.ReadLine();
+
+			//search list for name
+			//print it if found
+			//else print error message
+
+			//initialize variable
+			bool found = false;
+
+			foreach(Employee anEmployee in employeeList) {
+				if (anEmployee.LastName == findName) {
+					Console.WriteLine(anEmployee);
+					found = true;
+				}
+			} //end foreach
+
+			if (!(found)) {
+				Console.WriteLine("Oops! Name not found.");
+			}
+
     } //end main
   } //end class
 } //end namespace

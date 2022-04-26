@@ -106,7 +106,7 @@ namespace listInterfaceCRUD
 			Console.WriteLine("Enter employee first name to delete:");
 			fName = Console.ReadLine();
 			
-			//initialize variable to potentially break the loop
+			//initialize variable for future logic
 			found = false;
 
 			//loop through list; stop if I found the employee
@@ -131,6 +131,43 @@ namespace listInterfaceCRUD
 				Console.WriteLine(anEmployee);
 			} //end foreach
 
+			//=============================================================
+			//experiment with updating an employee's pay in the list
+			//=============================================================
+
+			//talk to human and save response
+			Console.WriteLine("Enter Employee last name to update:");
+			lName = Console.ReadLine();
+			Console.WriteLine("Enter Employee first name to update:");
+			fName = Console.ReadLine();
+			
+			//reset found to false for future logic
+			found = false;
+
+			//loop through list; stop if I found the employee
+			for (int i = 0; i < employeeList.Count; i++) {
+				
+				//if name's found, update their pay in list and set found to true
+				if ((employeeList[i].LastName == lName) && (employeeList[i].FirstName == fName)) {
+					Console.WriteLine("Yay! Employee found. Enter the new pay amount:");
+					double newPay = Convert.ToDouble(Console.ReadLine());
+					employeeList[i].SetRate(newPay);
+
+					found = true;
+				}
+			} //end for
+
+			//tell user whether name was updated
+			if (found == true) {
+				Console.WriteLine("Employee was updated. I hope that is what you wanted!");
+			} else {
+				Console.WriteLine("Employee not found. No one was updated.");
+			}
+
+			//print out updated list
+			foreach(Employee anEmployee in employeeList) {
+				Console.WriteLine(anEmployee);
+			} //end foreach
 
     } //end main
   } //end class

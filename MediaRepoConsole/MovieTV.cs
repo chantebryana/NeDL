@@ -8,24 +8,24 @@ namespace MyApplication
     public string Streaming 
     { get; set; }
 
-		public string Director 
+		public string LeadActor 
     { get; set; }
 
 		//default constructor
 		public MovieTV(): base() {
 			Streaming = "";
-			Director = "";
+			LeadActor = "";
 		}
 
 		//override constructor
-		public MovieTV(string newTitle, int newYearConsumed, string newGenre, string newNotes, string newStreaming, string newDirector): base(newTitle, newYearConsumed, newGenre, newNotes) {
+		public MovieTV(string newTitle, int newYearConsumed, string newGenre, string newNotes, string newStreaming, string newLeadActor): base(newTitle, newYearConsumed, newGenre, newNotes) {
 			Streaming = newStreaming;
-			Director = newDirector;
+			LeadActor = newLeadActor;
 		}
 
 		//override tostring for printing
 		public override string ToString() {
-			return $"\n**MOVIE OR TV**\nTitle: {Title}\nStreaming Service: {Streaming}\nDirected By: {Director}\nGenre: {Genre}\nYear Consumed: {YearConsumed}\nNotes: {Notes}";
+			return $"\n**MOVIE OR TV**\nTitle: {Title}\nStreaming Service: {Streaming}\nLead Actor: {LeadActor}\nGenre: {Genre}\nYear Consumed: {YearConsumed}\nNotes: {Notes}";
 		}
 
 		//practicing polymorphism

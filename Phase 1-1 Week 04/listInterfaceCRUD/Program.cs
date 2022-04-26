@@ -82,7 +82,7 @@ namespace listInterfaceCRUD
 					double hRate = Convert.ToDouble(Console.ReadLine());
 
 					//add new user input to list & let user know
-					employeeList.Add(new SalaryEmployee(lName, fName, eType, hRate));
+					employeeList.Add(new HourlyEmployee(lName, fName, eType, hRate));
 					Console.WriteLine("Hourly employee added. Printing out new list.");
 
 					break;

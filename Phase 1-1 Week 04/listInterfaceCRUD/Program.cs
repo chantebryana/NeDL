@@ -91,10 +91,45 @@ namespace listInterfaceCRUD
 					break;
 			} //end switch
 
-			//print list again
+			//print updated list
 			foreach (Employee anEmployee in employeeList) {
 				Console.WriteLine(anEmployee);
 			}
+
+			//=============================================================
+			//experiment with deleting an employee from the list
+			//=============================================================
+
+			//talk to human and save response
+			Console.WriteLine("Enter employee last name to delete:");
+			lName = Console.ReadLine();
+			Console.WriteLine("Enter employee first name to delete:");
+			fName = Console.ReadLine();
+			
+			//initialize variable to potentially break the loop
+			found = false;
+
+			//loop through list; stop if I found the employee
+			for (int i = 0; i < employeeList.Count; i++) {
+				
+				//if name's found, delete it and set found to true
+				if ((employeeList[i].LastName == lName) && (employeeList[i].FirstName == fName)) {
+					employeeList.RemoveAt(i);
+					found = true;
+				}
+			} //end for
+
+			//tell user whether name was deleted
+			if (found == true) {
+				Console.WriteLine("Employee was deleted. I hope that is what you wanted!");
+			} else {
+				Console.WriteLine("Employee not found. No one was deleted.");
+			}
+
+			//print out updated list
+			foreach(Employee anEmployee in employeeList) {
+				Console.WriteLine(anEmployee);
+			} //end foreach
 
 
     } //end main

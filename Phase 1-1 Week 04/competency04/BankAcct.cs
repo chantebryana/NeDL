@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic; //needed for lists
 
 namespace bankAcctActions
 {
@@ -37,6 +36,11 @@ namespace bankAcctActions
 			} 
 			return AcctBalance;
 		}
+
+		//abstract withdrawal method
+		//override in derived class
+		//different logic depending on which acct type
+		public abstract double Withdrawal(double withdrawalAmount);
 
 		//override ToString to write to console
 		public override string ToString() {

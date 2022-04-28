@@ -29,9 +29,8 @@ namespace bankAcctActions
 		}
 
 		//deposit method: same logic for all types of accounts
-		//if depositAmount > 0, add to currentBalance; return currentBalance
-		//CE NOT VIRTUAL; 
-		public virtual double Deposit(double depositAmount) {
+		//if depositAmount > 0, add to currentBalance; return currentBalance 
+		public double Deposit(double depositAmount) {
 			if (depositAmount > 0) {
 				AcctBalance = AcctBalance + depositAmount;
 			} 

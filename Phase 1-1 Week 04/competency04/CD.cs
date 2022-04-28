@@ -28,9 +28,23 @@ namespace bankAcctActions
 		//if savings acct balance > (withdrawal amount + early w/d penalty) AND if withdrawal amount > 0
 		//then subtract withdrawal and early penalty amounts and return updated account balance
 		public override double Withdrawal(double withdrawalAmount) {
+			bool successful = false;
+			
 			if (AcctBalance > (withdrawalAmount + EarlyWdPenalty) && withdrawalAmount > 0) {
+				double oldAcctBalance = AcctBalance;
+				//perform withdrawal
 				AcctBalance = AcctBalance - EarlyWdPenalty - withdrawalAmount;
+				successful = true;
+				
+				//tell user
+				Console.WriteLine($"   Account Balance ${(oldAcctBalance)}\n   - Withdrawal Amount ${withdrawalAmount}\n   - Early Withdrawal Penalty ${EarlyWdPenalty}\n   = ${AcctBalance}");
 			}
+
+			//if user's w/d amount doesn't conform to logic above, tell them so
+			if (successful == false) {
+				Console.WriteLine("Oops! Incorrect withdrawal amount. Nothing withdrawn from account.");
+			}
+			
 			return AcctBalance;
 		}
 

@@ -62,11 +62,40 @@ namespace bankAcctActions
 				//L - LIST ALL ACCTS
 				if (userChoiceString == "L") {
 					Console.WriteLine("LIST ACCOUNTS");
+
+					foreach(BankAcct anAcct in bankAccounts) {
+						Console.WriteLine(anAcct);
+					}
 				}
 
 				//D - DEPOSIT
 				else if (userChoiceString == "D") {
 					Console.WriteLine("DEPOSIT");
+
+					//initialize variable for later
+					bool foundAcctId = false;
+
+					//get acct id from user
+					Console.WriteLine("Enter Account Number you want to deposit into:");
+					int acctNumber = Convert.ToInt16(Console.ReadLine());
+
+					//loop through list. if acct is found, then perform deposit
+					foreach(BankAcct anAcct in bankAccounts) {
+						if (anAcct.AcctId == acctNumber) {
+							//if found acct id, as for deposit amount
+							Console.WriteLine("Enter Deposit amount:");
+							double newDeposit = Convert.ToDouble(Console.ReadLine());
+
+							//then perform deposit
+							anAcct.AcctBalance = anAcct.Deposit(newDeposit);
+							foundAcctId = true;
+						} 
+					}
+
+					//if couldn't find acct id, tell user so: 
+					if (foundAcctId == false) {
+						Console.WriteLine("Oops! Invalid Account Id. No deposit made.");
+					}
 
 				}
 
@@ -74,6 +103,30 @@ namespace bankAcctActions
 				else if (userChoiceString == "W") {
 					Console.WriteLine("WITHDRAWAL");
 
+					//initialize variable for later
+					bool foundAcctId = false;
+
+					//get acct id from user
+					Console.WriteLine("Enter Account Number you want to withdrawal from:");
+					int acctNumber = Convert.ToInt32(Console.ReadLine());
+
+					//loop through list. if acct is found, then perform withdrawal
+					foreach(BankAcct anAcct in bankAccounts) {
+						if (anAcct.AcctId == acctNumber) {
+							//if found acct id, ask for withdrawal amount
+							Console.WriteLine("Enter Withdrawal amount:");
+							double newWd = Convert.ToDouble(Console.ReadLine());
+
+							//then perform deposit
+							anAcct.AcctBalance = anAcct.Withdrawal(newWd);
+							foundAcctId = true;
+						} 
+					}
+
+					//if couldn't find acct id, tell user so: 
+					if (foundAcctId == false) {
+						Console.WriteLine("Oops! Invalid Account Id. No withdrawal made.");
+					}
 				}
 
 				//Q - QUIT - COMPLETE

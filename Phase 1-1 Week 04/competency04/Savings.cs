@@ -2,7 +2,7 @@ using System;
 
 namespace bankAcctActions
 {
-	class Savings : BankAcct
+	class Savings : BankAcct, ICalculateAnnualInterest
   {
 		//property
 		public double AnnualInterestRate
@@ -29,10 +29,21 @@ namespace bankAcctActions
 			return AcctBalance;
 		}
 
+		//calculate annual interest
+		//inherit from interface
+		//report to user via tostring override
+		public double CalculateAnnualInterest() {
+			return AcctBalance * (AnnualInterestRate / 100);
+		}
+
 
 		//override tostring to write to console
 		public override string ToString() {
-			return base.ToString() + $"\nAnnual Interst Rate: {AnnualInterestRate}%";
+			//convert double into string, rounded to two decimal places
+			string annualInterestTwoDecimal = CalculateAnnualInterest().ToString("#.##");
+			
+			//pretty print
+			return base.ToString() + $"\nAnnual Interst Rate: {AnnualInterestRate}%\nAmount Earned from Interest after One Year: ${annualInterestTwoDecimal}";
 		}
 
   } //end class

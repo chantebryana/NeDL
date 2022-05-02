@@ -24,6 +24,43 @@ namespace CustomerMemberships
 			return Console.ReadLine().ToUpper();
 		}
 		
+		//ask member id; make sure it's unique
+		//for CREATE
+		static int askForUniqueMemberId(string question, List<Membership> membList) {
+			bool firstPass = true; 
+			int memberId;
+			int validate = 0;
+
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Oops! That Member ID isn't unique. Try again.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				memberId = Convert.ToInt32(Console.ReadLine());
+				validate = ValidateInput(memberId, membList);
+			} while (validate != 1); //end do/while
+
+			return memberId;
+		}
+
+		//validate unique member id
+    static int ValidateInput(int memberId, List<Membership> membList) {
+			//initalize variable (0 = false; 1 = true)
+			int isMembIdUnique = 1;
+
+			foreach(Membership aMembership in membList) {
+				if (memberId == aMembership.MembershipId) {
+					isMembIdUnique = 0;
+				}
+			} //end foreach
+
+			return isMembIdUnique;
+    }
+
 		//**********************************************
 		//MAIN!!!
 		//**********************************************
@@ -86,7 +123,12 @@ namespace CustomerMemberships
 				//logic for individual user choices
 				//C - CREATE
 				if (userChoiceString == "C") {
-					Console.WriteLine("CREATE NEW ENTRY IN LIST");
+					Console.WriteLine("CREATE NEW MEMBERSHIP");
+
+					Console.WriteLine("");
+
+					string question = "Enter unique Member ID";
+					int memberId = askForUniqueMemberId(question, memberships);
 
 				}
 

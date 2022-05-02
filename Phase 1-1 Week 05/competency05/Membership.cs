@@ -1,6 +1,6 @@
 using System;
 
-namespace CustomerMemeberships
+namespace CustomerMemberships
 {
 	abstract class Membership
   {

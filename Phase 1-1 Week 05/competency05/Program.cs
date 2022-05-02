@@ -14,7 +14,7 @@ namespace CustomerMemberships
 			memberships.Add(new Regular(1, "email@domain.com", "Regular", 100.00, 500.00));
 			memberships.Add(new Executive(2, "email2@domain.com", "Executive", 200.00, 999.00));
 			memberships.Add(new Regular(3, "email3@domain.com", "Nonprofit", 50.00, 250.00));
-			memberships.Add(new Executive(4, "email4@domain.com", "Corporate", 274.99, 25000.00));
+			memberships.Add(new Corporate(4, "email4@domain.com", "Corporate", 274.99, 25000.00));
 
 			foreach(Membership aMembership in memberships) {
 				Console.WriteLine(aMembership);
@@ -22,7 +22,7 @@ namespace CustomerMemberships
 
 			//play with cash back
 			bool idFound = false;
-			int id = 2;
+			int id = 4;
 			foreach(Membership aMembership in memberships) {
 				//if id is found in list
 				if (aMembership.MembershipId == id) {

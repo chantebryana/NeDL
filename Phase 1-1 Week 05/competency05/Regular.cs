@@ -17,13 +17,16 @@ namespace CustomerMemberships
 		//regular membership has flat percent (5%) for cash-back rewards on all purchases
 		//once applied, zero out monthly purchase total
 		public override double ApplyCashbackReward() {
-			double cashBack = MonthlyPurchaseTotal * 0.05;
-			Console.WriteLine($"\nSuccess! Cash-back reward of ${cashBack} applied to membership {MembershipId}.");
+			double percent = 5;
+			double cashBack = MonthlyPurchaseTotal * (percent / 100);
+			string cashBackTwoDecimal = cashBack.ToString("#.##");
+			Console.WriteLine($"\nSuccess! {percent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
 
 			return MonthlyPurchaseTotal = 0D;
 		}
 
 		//special offer from interface
+		//25% for regular
 		public double SpecialOffer() {
 			return AnnualCost * 0.25;
 		}

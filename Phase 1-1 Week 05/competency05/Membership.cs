@@ -50,7 +50,7 @@ namespace CustomerMemberships
 		}
 
 		//abstract apply cashback rewards: different logic depending on which membership type
-		public abstract double ApplyCashbackReward();
+		public abstract double ApplyCashbackReward(double percent);
 
 
 		//override tostring (for pretty printening)

@@ -16,8 +16,7 @@ namespace CustomerMemberships
 		//cashback
 		//corporate membership has a flat percent (10%) for cash-back rewards
 		//once applied, zero out monthly purchase total
-		public override double ApplyCashbackReward() {
-			double percent = 10;
+		public override double ApplyCashbackReward(double percent) {
 			double cashBack = MonthlyPurchaseTotal * (percent / 100);
 			string cashBackTwoDecimal = cashBack.ToString("#.##");
 			Console.WriteLine($"\nSuccess! {percent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");

@@ -16,18 +16,16 @@ namespace CustomerMemberships
 		//cashback
 		//executive membership has percentages for two tiers (one below $1000 [3.5%] and one above [7%]) of cash-back rewards
 		//once applied, zero out monthly purchase total
-		public override double ApplyCashbackReward() {
-			double lo = 3.5;
-			double hi = 7;
-			
+		public override double ApplyCashbackReward(double percent) {
 			if (MonthlyPurchaseTotal < 1000.00) {
-				double cashBack = MonthlyPurchaseTotal * (lo / 100);
+				double cashBack = MonthlyPurchaseTotal * (percent / 100);
 				string cashBackTwoDecimal = cashBack.ToString("#.##");
-				Console.WriteLine($"\nSuccess! {lo}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
+				Console.WriteLine($"\nSuccess! {percent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
 			} else {
-				double cashBack = MonthlyPurchaseTotal * (hi / 100);
+				percent = percent * 2;
+				double cashBack = MonthlyPurchaseTotal * (percent / 100);
 				string cashBackTwoDecimal = cashBack.ToString("#.##");
-				Console.WriteLine($"\nSuccess! {hi}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
+				Console.WriteLine($"\nSuccess! {percent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
 			}
 
 			return MonthlyPurchaseTotal = 0D;

@@ -107,6 +107,7 @@ namespace CustomerMemberships
 			string userChoiceString;
 
 			//initialize cash back percentages for each different membership type
+			//to be used when applying cashback
 			double regularPercent = 5;
 			double executivePercent = 3.5;
 			double nonProfitPercent = 6;
@@ -118,11 +119,11 @@ namespace CustomerMemberships
 			//add a series of hard-coded membership types
 			memberships.Add(new Regular(1, "email@domain.com", "Regular", 99.99, 500.00));
 			memberships.Add(new Executive(2, "email2@domain.com", "Executive", 200.00, 999.00));
-			memberships.Add(new NonProfit(3, "email3@domain.com", "Nonprofit", 50.00, 250.00));
+			memberships.Add(new NonProfit(3, "email3@domain.com", "NonProfit", 50.00, 250.00));
 			memberships.Add(new Corporate(4, "email4@domain.com", "Corporate", 274.95, 25000.00));
 			memberships.Add(new Regular(5, "email5@domain.com", "Regular", 99.99, 675.00));
 			memberships.Add(new Executive(6, "email6@domain.com", "Executive", 200.00, 1059.55));
-			memberships.Add(new NonProfit(7, "email7@domain.com", "Nonprofit", 50.00, 2097.00));
+			memberships.Add(new NonProfit(7, "email7@domain.com", "NonProfit", 50.00, 2097.00));
 			memberships.Add(new Corporate(8, "email8@domain.com", "Corporate", 274.95, 1066.00));
 
 			
@@ -326,6 +327,52 @@ namespace CustomerMemberships
 				//A - APPLY CASHBACK REWARDS
 				else if (userChoiceString == "A") {
 					Console.WriteLine("APPLY CASHBACK REWARDS");
+
+					//find existing member id
+					string cashBackQuestion = "Enter existing Membership ID to apply cashback rewards to:";
+					int memberId = askForUniqueMemberId(cashBackQuestion, memberships, false);
+
+					//look up member based on id, then apply cashback logic based on which member type
+					foreach(Membership aMembership in memberships) {
+						if (aMembership.MembershipId == memberId) {
+							switch (aMembership.MembershipType) {
+								case "Regular": 
+									//use Regular logic to apply cash back and set monthly purchase total to $0.00
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(regularPercent);
+									break;
+								case "Executive": 
+									//use Executive logic to apply cash back and set monthly purchase total to $0.00
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(executivePercent);
+									break;
+								case "NonProfit": 
+									//CE ASK MORE QUESTIONS
+									Console.WriteLine("Is your NonProfit Military or Education? (Y / N)");
+									string milOrEd = (Console.ReadLine()).ToUpper();
+
+									//if nonprofit is military or education, extra percent logic
+									if (milOrEd == "Y") {
+										double doublePercent = nonProfitPercent * 2;
+
+										//use Nonprofit double logic to apply cash back and set monthly purchase total to $0.00
+										aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(doublePercent);
+										break;
+									} else {
+										//use Nonprofit logic to apply cash back and set monthly purchase total to $0.00
+										aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(nonProfitPercent);
+										break;
+									}
+								case "Corporate": 
+									//use Corporate logic to apply cash back and set monthly purchase total to $0.00
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(corporatePercent);
+									break;
+								default: 
+									//error message (CE it would be a crazy fluke if this default state were ever hit)
+									Console.WriteLine("Oops! Something bad happened. No cash back applied.");
+									break;
+							} //end switch
+
+						} //end if
+					} //end foreach
 
 				}
 

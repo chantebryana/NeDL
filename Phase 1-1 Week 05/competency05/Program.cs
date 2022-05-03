@@ -282,8 +282,8 @@ namespace CustomerMemberships
 					Console.WriteLine("BUY BUY BUY CONSUME!");
 
 					//find existing member id
-					string updateQuestion = "Enter existing Membership ID to apply a purchase to:";
-					int memberId = askForUniqueMemberId(updateQuestion, memberships, false);
+					string purchaseQuestion = "Enter existing Membership ID to apply a purchase to:";
+					int memberId = askForUniqueMemberId(purchaseQuestion, memberships, false);
 
 					//enter purchase amount; must be greater than $0.00
 					int low = 0;
@@ -300,9 +300,26 @@ namespace CustomerMemberships
 
 				}
 
-				//T - RETURN
+				//T - RETURN - MVP DONE
 				else if (userChoiceString == "T") {
 					Console.WriteLine("MAKE A RETURN");
+
+					//find existing member id
+					string returnQuestion = "Enter existing Membership ID to apply a refund to:";
+					int memberId = askForUniqueMemberId(returnQuestion, memberships, false);
+
+					//enter refund amount; must be greater than $0.00
+					int low = 0;
+					string moneyQuestion = $"Enter refund amount: (> ${low}.00)";
+					double refundAmount = askForValidMoneyAmount(moneyQuestion, low);
+
+					foreach(Membership aMember in memberships) {
+						if (aMember.MembershipId == memberId) {
+							aMember.MonthlyPurchaseTotal = aMember.MonthlyPurchaseTotal - refundAmount;
+						}
+					}
+
+					Console.WriteLine($"Refund amount of ${refundAmount} successfully applied to Member {memberId}.");
 
 				}
 

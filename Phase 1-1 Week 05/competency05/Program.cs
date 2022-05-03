@@ -333,29 +333,7 @@ namespace CustomerMemberships
 					//look up member based on id, then apply cashback logic based on which member type
 					foreach(Membership aMembership in memberships) {
 						if (aMembership.MembershipId == memberId) {
-							switch (aMembership.MembershipType) {
-								case "Regular": 
-									//use Regular logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
-									break;
-								case "Executive": 
-									//use Executive logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
-									break;
-								case "NonProfit": 
-									//use Nonprofit logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
-									break;
-								case "Corporate": 
-									//use Corporate logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
-									break;
-								default: 
-									//error message (CE shouldn't hit this if code above is right)
-									Console.WriteLine("Oops! Something bad happened. No cash back applied.");
-									break;
-							} //end switch
-
+							aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
 						} //end if
 					} //end foreach
 

@@ -6,6 +6,7 @@ namespace CustomerMemberships
 	class Program
   {
     //print option menu and return user input
+		//FOR TOP OF MAIN
 		static string askUserMenuOptions () {
 			//print menu options
 			Console.WriteLine("");
@@ -48,6 +49,7 @@ namespace CustomerMemberships
 		}
 
 		//validate unique member id
+		//FOR CREATE
     static int ValidateInput(int memberId, List<Membership> membList) {
 			//initalize variable (0 = false; 1 = true)
 			int isMembIdUnique = 1;
@@ -61,6 +63,7 @@ namespace CustomerMemberships
 			return isMembIdUnique;
     }
 
+		
 		//**********************************************
 		//MAIN!!!
 		//**********************************************
@@ -125,10 +128,45 @@ namespace CustomerMemberships
 				if (userChoiceString == "C") {
 					Console.WriteLine("CREATE NEW MEMBERSHIP");
 
-					Console.WriteLine("");
+					//ask for unique member id; keep asking till user enters unique int
+					string idQuestion = "Enter unique Member ID:";
+					int memberId = askForUniqueMemberId(idQuestion, memberships);
 
-					string question = "Enter unique Member ID";
-					int memberId = askForUniqueMemberId(question, memberships);
+					Console.WriteLine("Enter email address:");
+					string email = Console.ReadLine();
+
+					Console.WriteLine("Enter membership type (R, E, NP, C):");
+					string memberType = (Console.ReadLine()).ToUpper();
+
+					Console.WriteLine("Enter annual cost:");
+					double cost = Convert.ToDouble(Console.ReadLine());
+
+					Console.WriteLine("Enter this month's running purchase total:");
+					double monthlyPurcase = Convert.ToDouble(Console.ReadLine());
+
+					switch (memberType) {
+						case "R": 
+							//add user info to list
+							memberships.Add(new Regular(memberId, email, "Regular", cost, monthlyPurcase));
+							break;
+						case "E": 
+							//do a thing
+							//add user info to list
+							memberships.Add(new Executive(memberId, email, "Executive", cost, monthlyPurcase));
+							break;
+						case "NP": 
+							//add user info to list
+							memberships.Add(new NonProfit(memberId, email, "NonProfit", cost, monthlyPurcase));
+							break;
+						case "C": 
+							//add user info to list
+							memberships.Add(new Corporate (memberId, email, "Corporate", cost, monthlyPurcase));
+							break;
+						default: 
+							//error message (CE bad place for validation; consider bumping higher)
+							Console.WriteLine("Oops! Incorrect member type. No new entry added.");
+							break;
+					} //end switch
 
 				}
 

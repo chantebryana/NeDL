@@ -26,16 +26,16 @@ namespace CustomerMemberships
 		}
 		
 		//ask member id; make sure it's unique
-		//for CREATE
-		static int askForUniqueMemberId(string question, List<Membership> membList) {
+		//for CREATE and UPDATE
+		static int askForUniqueMemberId(string question, List<Membership> membList, bool trueOrFalse) {
 			bool firstPass = true; 
 			int memberId;
-			int validate = 0;
+			bool validate = false;
 
 			do {
 				//print 'oops' statement if not first runthru
 				if (firstPass == false) {
-					Console.WriteLine("Oops! That Member ID isn't unique. Try again.");
+					Console.WriteLine("Oops! Incorrect User input. Try again.");
 				}
 				firstPass = false;
 
@@ -43,20 +43,20 @@ namespace CustomerMemberships
 				Console.WriteLine(question);
 				memberId = Convert.ToInt32(Console.ReadLine());
 				validate = ValidateInput(memberId, membList);
-			} while (validate != 1); //end do/while
+			} while (validate != trueOrFalse); //end do/while
 
 			return memberId;
 		}
 
 		//validate unique member id
-		//FOR CREATE
-    static int ValidateInput(int memberId, List<Membership> membList) {
+		//FOR askForUniqueMemberId
+    static bool ValidateInput(int memberId, List<Membership> membList) {
 			//initalize variable (0 = false; 1 = true)
-			int isMembIdUnique = 1;
+			bool isMembIdUnique = true;
 
 			foreach(Membership aMembership in membList) {
 				if (memberId == aMembership.MembershipId) {
-					isMembIdUnique = 0;
+					isMembIdUnique = false;
 				}
 			} //end foreach
 
@@ -124,13 +124,13 @@ namespace CustomerMemberships
 				} while (!userChoice) ; //end inner do
 
 				//logic for individual user choices
-				//C - CREATE
+				//C - CREATE - MVP DONE
 				if (userChoiceString == "C") {
 					Console.WriteLine("CREATE NEW MEMBERSHIP");
 
 					//ask for unique member id; keep asking till user enters unique int
 					string idQuestion = "Enter unique Member ID:";
-					int memberId = askForUniqueMemberId(idQuestion, memberships);
+					int memberId = askForUniqueMemberId(idQuestion, memberships, true);
 
 					Console.WriteLine("Enter email address:");
 					string email = Console.ReadLine();
@@ -168,9 +168,11 @@ namespace CustomerMemberships
 							break;
 					} //end switch
 
+					Console.WriteLine($"Member {memberId} successfully created.");
+
 				}
 
-				//R - READ/PRINT
+				//R - READ/PRINT - DONE
 				else if (userChoiceString == "R") {
 					Console.WriteLine("READ LIST");
 
@@ -179,9 +181,24 @@ namespace CustomerMemberships
 					}
 				}
 
-				//U - UPDATE
+				//U - UPDATE - MVP DONE
 				else if (userChoiceString == "U") {
 					Console.WriteLine("UPDATE MEMBERSHIP");
+
+					//find existing member id
+					string updateQuestion = "Enter existing Membership ID to update:";
+					int memberId = askForUniqueMemberId(updateQuestion, memberships, false);
+
+					Console.WriteLine("Update email address");
+					string newEmail = Console.ReadLine();
+
+					foreach(Membership aMember in memberships) {
+						if (aMember.MembershipId == memberId) {
+							aMember.Email = newEmail;
+						}
+					}
+
+					Console.WriteLine($"Member {memberId} successfully updated.");
 
 				}
 
@@ -191,7 +208,7 @@ namespace CustomerMemberships
 
 				}
 
-				//L - LIST
+				//L - LIST - DONE
 				else if (userChoiceString == "L") {
 					Console.WriteLine("LIST ALL MEMBERSHIPS");
 

@@ -202,9 +202,36 @@ namespace CustomerMemberships
 
 				}
 
-				//D - DELETE
+				//D - DELETE - MVP DONE
 				else if (userChoiceString == "D") {
 					Console.WriteLine("DELETE MEMBERSHIP");
+
+					//find existing member id; keep asking till user enters existing id
+					string updateQuestion = "Enter existing Membership ID to delete:";
+					int memberId = askForUniqueMemberId(updateQuestion, memberships, false);
+
+					//are you sure?
+					Console.WriteLine($"Confirm (Y / N)");
+					string confirmation = (Console.ReadLine()).ToUpper();
+
+					bool removed = false;
+
+					if (confirmation == "Y") {
+						//remove from list
+						for (int i = 0; i < memberships.Count; i++) {
+							if (memberships[i].MembershipId == memberId) {
+								memberships.RemoveAt(i);
+								removed = true;
+							}
+						}
+					}
+
+					//report results to user
+					if (removed == true) {
+						Console.WriteLine($"Member {memberId} successfully deleted.");
+					} else {
+						Console.WriteLine("Deletion aborted.");
+					}
 
 				}
 

@@ -322,7 +322,7 @@ namespace CustomerMemberships
 
 				}
 
-				//A - APPLY CASHBACK REWARDS
+				//A - APPLY CASHBACK REWARDS - MVP DONE
 				else if (userChoiceString == "A") {
 					Console.WriteLine("APPLY CASHBACK REWARDS");
 

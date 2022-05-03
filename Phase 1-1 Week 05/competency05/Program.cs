@@ -63,6 +63,39 @@ namespace CustomerMemberships
 			return isMembIdUnique;
     }
 
+		//validate user input (lo and hi)
+    static bool ValidateInput(double userInput, int low, int high = int.MaxValue) {
+				//if incorrect   
+        if (userInput <= low || userInput > high) {
+						return false;
+        } 
+        //if correct
+        else {
+            return true;
+        }
+    }
+
+		static double askForValidMoneyAmount(string question, int low) {
+			bool firstPass = true; 
+			double moneyAmount;
+			bool validate = false;
+
+			do {
+				//print 'oops' statement if not first runthru
+				if (firstPass == false) {
+					Console.WriteLine("Oops! Incorrect User input. Try again.");
+				}
+				firstPass = false;
+
+				//get user input and validate
+				Console.WriteLine(question);
+				moneyAmount = Convert.ToDouble(Console.ReadLine());
+				validate = ValidateInput(moneyAmount, low);
+			} while (validate != true); //end do/while
+
+			return moneyAmount;
+		}
+
 		
 		//**********************************************
 		//MAIN!!!
@@ -244,9 +277,26 @@ namespace CustomerMemberships
 					}
 				}
 
-				//P - PURCHASE
+				//P - PURCHASE - MVP DONE
 				else if (userChoiceString == "P") {
-					Console.WriteLine("MAKE PURCHASE");
+					Console.WriteLine("BUY BUY BUY CONSUME!");
+
+					//find existing member id
+					string updateQuestion = "Enter existing Membership ID to apply a purchase to:";
+					int memberId = askForUniqueMemberId(updateQuestion, memberships, false);
+
+					//enter purchase amount; must be greater than $0.00
+					int low = 0;
+					string moneyQuestion = $"Enter purchase amount: (> ${low}.00)";
+					double purchaseAmount = askForValidMoneyAmount(moneyQuestion, low);
+
+					foreach(Membership aMember in memberships) {
+						if (aMember.MembershipId == memberId) {
+							aMember.MonthlyPurchaseTotal += purchaseAmount;
+						}
+					}
+
+					Console.WriteLine($"Purchase amount of ${purchaseAmount} successfully applied to Member {memberId}.");
 
 				}
 

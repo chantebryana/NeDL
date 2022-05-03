@@ -5,22 +5,25 @@ namespace CustomerMemberships
 	class Regular: Membership, ISpecialOffer
   {
 		//properties
-		//there are no new ones
+		public double CashBackPercent
+		{ get; set; }
 
 		//default constructor
 		public Regular(): base() {}
 
 		//override constructor
-		public Regular(int newId, string newEmail, string newType, double newCost, double newTotal): base(newId, newEmail, newType, newCost, newTotal) {}
+		public Regular(int newId, string newEmail, string newType, double newCost, double newTotal, double newPercent): base(newId, newEmail, newType, newCost, newTotal) {
+			CashBackPercent = newPercent;
+		}
 		
 		//cashback
 		//regular membership has flat percent (5%) for cash-back rewards on all purchases
 		//once applied, zero out monthly purchase total
-		public override double ApplyCashbackReward(double percent) {
+		public override double ApplyCashbackReward() {
 			if (MonthlyPurchaseTotal > 0) {
-				double cashBack = MonthlyPurchaseTotal * (percent / 100);
+				double cashBack = MonthlyPurchaseTotal * (CashBackPercent / 100);
 				string cashBackTwoDecimal = cashBack.ToString("#.##");
-				Console.WriteLine($"\nSuccess! {percent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
+				Console.WriteLine($"\nSuccess! {CashBackPercent}% of ${MonthlyPurchaseTotal} gives you a Cash-Back Reward of ${cashBackTwoDecimal} applied to Membership {MembershipId}.");
 
 				MonthlyPurchaseTotal = 0D;
 			}

@@ -117,17 +117,15 @@ namespace CustomerMemberships
 			List<Membership> memberships = new List<Membership>();
 
 			//add a series of hard-coded membership types
-			memberships.Add(new Regular(1, "email@domain.com", "Regular", 99.99, 500.00));
-			memberships.Add(new Executive(2, "email2@domain.com", "Executive", 200.00, 999.00));
-			memberships.Add(new NonProfit(3, "email3@domain.com", "NonProfit", 50.00, 250.00));
-			memberships.Add(new Corporate(4, "email4@domain.com", "Corporate", 274.95, 25000.00));
-			memberships.Add(new Regular(5, "email5@domain.com", "Regular", 99.99, 675.00));
-			memberships.Add(new Executive(6, "email6@domain.com", "Executive", 200.00, 1059.55));
-			memberships.Add(new NonProfit(7, "email7@domain.com", "NonProfit", 50.00, 2097.00));
-			memberships.Add(new Corporate(8, "email8@domain.com", "Corporate", 274.95, 1066.00));
+			memberships.Add(new Regular(1, "email@domain.com", "Regular", 99.99, 500.00, regularPercent));
+			memberships.Add(new Executive(2, "email2@domain.com", "Executive", 200.00, 999.00, executivePercent));
+			memberships.Add(new NonProfit(3, "email3@domain.com", "NonProfit", 50.00, 250.00, nonProfitPercent));
+			memberships.Add(new Corporate(4, "email4@domain.com", "Corporate", 274.95, 25000.00, corporatePercent));
+			memberships.Add(new Regular(5, "email5@domain.com", "Regular", 99.99, 675.00, regularPercent));
+			memberships.Add(new Executive(6, "email6@domain.com", "Executive", 200.00, 1059.55, executivePercent));
+			memberships.Add(new NonProfit(7, "email7@domain.com", "NonProfit", 50.00, 2097.00, nonProfitPercent));
+			memberships.Add(new Corporate(8, "email8@domain.com", "Corporate", 274.95, 1066.00, corporatePercent));
 
-			
-			
 
 			//repeat till user quits
 			do {
@@ -181,20 +179,20 @@ namespace CustomerMemberships
 					switch (memberType) {
 						case "R": 
 							//add user info to list
-							memberships.Add(new Regular(memberId, email, "Regular", cost, monthlyPurcase));
+							memberships.Add(new Regular(memberId, email, "Regular", cost, monthlyPurcase, regularPercent));
 							break;
 						case "E": 
 							//do a thing
 							//add user info to list
-							memberships.Add(new Executive(memberId, email, "Executive", cost, monthlyPurcase));
+							memberships.Add(new Executive(memberId, email, "Executive", cost, monthlyPurcase, executivePercent));
 							break;
 						case "NP": 
 							//add user info to list
-							memberships.Add(new NonProfit(memberId, email, "NonProfit", cost, monthlyPurcase));
+							memberships.Add(new NonProfit(memberId, email, "NonProfit", cost, monthlyPurcase, nonProfitPercent));
 							break;
 						case "C": 
 							//add user info to list
-							memberships.Add(new Corporate (memberId, email, "Corporate", cost, monthlyPurcase));
+							memberships.Add(new Corporate (memberId, email, "Corporate", cost, monthlyPurcase, corporatePercent));
 							break;
 						default: 
 							//error message (CE bad place for validation; consider bumping higher)
@@ -338,35 +336,22 @@ namespace CustomerMemberships
 							switch (aMembership.MembershipType) {
 								case "Regular": 
 									//use Regular logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(regularPercent);
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
 									break;
 								case "Executive": 
 									//use Executive logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(executivePercent);
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
 									break;
 								case "NonProfit": 
-									//CE ASK MORE QUESTIONS
-									Console.WriteLine("Is your NonProfit Military or Education? (Y / N)");
-									string milOrEd = (Console.ReadLine()).ToUpper();
-
-									//if nonprofit is military or education, extra percent logic
-									if (milOrEd == "Y") {
-										double doublePercent = nonProfitPercent * 2;
-
-										//use Nonprofit double logic to apply cash back and set monthly purchase total to $0.00
-										aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(doublePercent);
-										break;
-									} else {
-										//use Nonprofit logic to apply cash back and set monthly purchase total to $0.00
-										aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(nonProfitPercent);
-										break;
-									}
+									//use Nonprofit logic to apply cash back and set monthly purchase total to $0.00
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
+									break;
 								case "Corporate": 
 									//use Corporate logic to apply cash back and set monthly purchase total to $0.00
-									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward(corporatePercent);
+									aMembership.MonthlyPurchaseTotal = aMembership.ApplyCashbackReward();
 									break;
 								default: 
-									//error message (CE it would be a crazy fluke if this default state were ever hit)
+									//error message (CE shouldn't hit this if code above is right)
 									Console.WriteLine("Oops! Something bad happened. No cash back applied.");
 									break;
 							} //end switch

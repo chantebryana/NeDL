@@ -1,13 +1,20 @@
 body {
-	background-color: lightblue;
+	background-color: rgb(167, 129, 183);
 }
 
 p {
-	color: navy;
+	color: rgb(128, 0, 75);
 	margin-left: 30px;
+	font-weight: bold;
+	font-family: 'Courier New', Courier, monospace; 
 }
 
 h1 {
-	color: red;
+	color: rgb(15, 0, 89);
 	margin-right: 20px;
+	font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+form {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

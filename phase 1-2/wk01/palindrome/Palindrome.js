@@ -12,6 +12,19 @@ function palindrome1(str) {
   return reverseStr === lowRegStr;
 }
 
+//second palindrome checker
+function palindrome2(str) {
+	var re = /[^A-Za-z0-9]/g;
+	str = str.toLowerCase().replace(re, '');
+	var len = str.length;
+	for (var i = 0; i < len/2; i++) {
+		if (str[i] !== str[len - 1 - i]) {
+				return false;
+		}
+	}
+	return true;
+ }
+
 function validateANDadd() {
 	var theNewWord = document.forms["myForm"]["newWord"].value;
 	var theNewNum = document.forms["myForm"]["newNumber"].value;
@@ -44,8 +57,10 @@ function validateANDadd() {
 		} 
 		//use second palindrome logic
 		else {
+			var trueOrFalse = palindrome2(theNewWord);
+			
 			var tableRef = document.getElementById("myList2");
-			(tableRef.insertRow(tableRef.rows.length)).innerHTML = theNewWord;
+			(tableRef.insertRow(tableRef.rows.length)).innerHTML = theNewWord + ": " + trueOrFalse;
 		}
 		//erase the form fields
 		document.forms["myForm"]["newWord"].value = "";

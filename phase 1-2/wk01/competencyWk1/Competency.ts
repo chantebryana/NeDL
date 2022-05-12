@@ -38,7 +38,6 @@ function deleteFromList() {
 		//initialize variables
 		let matchFound = false;
 		let tableRef = <HTMLTableElement>document.getElementById("myList1");
-		console.log(tableRef);
 		
 		//loop thru todo list
 		for (let i = 0; i < tableRef.rows.length; i++) {
@@ -47,8 +46,11 @@ function deleteFromList() {
 				//flag to true
 				matchFound = true;
 				
-				//remove matching element from list
+				//remove the first matching element from list
 				tableRef.rows[i].remove();
+
+				//break out of loop
+				break;
 			}
 		}
 

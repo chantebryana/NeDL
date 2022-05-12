@@ -34,15 +34,16 @@ function deleteFromList() {
         //initialize variables
         var matchFound = false;
         var tableRef = document.getElementById("myList1");
-        console.log(tableRef);
         //loop thru todo list
         for (var i = 0; i < tableRef.rows.length; i++) {
             //if match is found
             if ((tableRef.rows[i].innerHTML).toLowerCase() == (wordToDelete).toLowerCase()) {
                 //flag to true
                 matchFound = true;
-                //remove matching element from list
+                //remove the first matching element from list
                 tableRef.rows[i].remove();
+                //break out of loop
+                break;
             }
         }
         //alert if no match found

@@ -17,18 +17,18 @@
 				<form name="myForm">
 					Enter a task: <input type="text" name="newWord" value="">
 					<br /><br />
-					<input type="button" value="Add To List" onclick="validateANDadd()"> 
+					<input type="button" value="Add To List" onclick="addToList()"> 
 					<br /><br />
-					<input type="button" value="Delete from List" onclick="validateANDdelete()"> <!--CE different method to remove-->
+					<input type="button" value="Delete from List" onclick="deleteFromList()"> <!--CE different method to remove-->
 					<br /><br />
-					<input type="button" value="Task Completed" onclick="validateANDadd()"> <!--CE different method to mark as complete-->
+					<input type="button" value="Task Completed - Doesn't Work Yet" onclick="addToList()"> <!--CE different method to mark as complete-->
 				</form>
 			</div>
 			<div class="myflexboxColumn">
 				<h2>To Dos / Dones</h2>
 				<table id="myList1"></table>
 				<br /><br />
-				<input type="button" value="Clear List" onclick="clearList1()">
+				<input type="button" value="Clear List" onclick="clearWholeList()">
 			</div>
 		</div>
 	</body><!--end body-->

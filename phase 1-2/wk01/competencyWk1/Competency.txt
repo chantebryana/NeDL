@@ -1,0 +1,27 @@
+End-of-week competency challenge problem
+
+General description
+
+Create a front-end application using Typescript to maintain a To-do list.
+
+User stories
+
+    The user will be able to add an item to the to-do list and see the updated list.
+    The user will be able to remove an item from the to-do list and see the updated list.
+    The user will be able to clear all items from the list and see the updated list.
+    Optional: The user will be able to mark an item as complete.
+    Optional: The user will be able to save and retrieve the list from a local file.
+
+Additional requirements
+
+    Use VS Code for this challenge.
+    A separate HTML file should be used to provide structure to the app.
+    A separate CSS file should be used to style the app.
+    A separate Typescript file should be used to provide behavior to the app.  It will be transpiled into a Javascript file.
+    All files should be contained in a local git repo that is synchronized with a remote Github repo.
+
+Quality Assurance
+
+    Thoroughly test all the user stories of your front-end application.
+    Have another cohort member test all the user stories and additional requirements of your front-end application.
+    Demonstrate to the instructor all the user stories and additional requirements of your front-end application.

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiration Nuggets</title>
+
+    <link rel="stylesheet" href="Quote.css">
+    <script src="Quote.js"></script>
+	</head> <!--end head-->
+
+	<body>
+		<h1>Quote Me!</h1>
+		<div class="myflexboxRow">
+			<div class="myflexboxColumn">
+				<h2>Find a Quote</h2>
+				<form name="myForm">
+					Select Quote Length: 
+					<select name="quoteLength" id="quoteLength">
+						<option value="Short">Short</option>
+						<option value="Medium">Medium</option>
+						<option value="Long">Long</option>
+					</select>
+					<br /><br />
+					<input type="button" value="Search" onclick="addToList()"> <!-- CE DIFFERENT METHOD TO SEARCH-->
+				</form>
+			</div>
+			<div class="myflexboxColumn">
+				<h2></h2>
+				<br /><br />
+				<table id="myList1">
+					<tr>"A mind is a terrible thing to waste."</tr>
+				</table>
+			</div>
+		</div>
+	</body><!--end body-->
+	
+</html>

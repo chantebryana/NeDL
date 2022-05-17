@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Tell the Weather</title>
+
+    <link rel="stylesheet" href="Weather.css">
+    <script src="Weather.js"></script>
+	</head> <!--end head-->
+
+	<body>
+		<h1>Fortune Teller</h1>
+		<div class="myflexboxRow">
+			<div class="myflexboxColumn">
+				<h2>Forecast for your area</h2>
+				<form name="myForm">
+					Select Region: 
+					<select name="wxRegion" id="wxRegion">
+						<option value="OAX">Omaha/Valley</option>
+						<option value="BOU">Denver - Boulder</option>
+						<option value="EAX">Kansas City/Pleasant Hill</option>
+					</select>
+					<br /><br />
+					<input type="button" value="Search" onclick="addToList()"> <!-- CE DIFFERENT METHOD TO SEARCH-->
+				</form>
+			</div>
+			<div class="myflexboxColumn">
+				<h2></h2>
+				<br /><br />
+				<table id="myList1"></table>
+			</div>
+		</div>
+	</body><!--end body-->
+	
+</html>

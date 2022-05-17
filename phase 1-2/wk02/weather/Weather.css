@@ -24,3 +24,13 @@
 	} 
 }
 
+td, th {
+  border: 1px solid rgb(255, 255, 173);
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(255, 255, 173);
+}
+

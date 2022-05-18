@@ -5,7 +5,7 @@ import { Hero } from './hero';
 export const HEROES: Hero[] = [
 	{ id: 11, name: 'Thich Nhat Hanh' },
 	{ id: 12, name: 'Carl Sagan' },
-	{ id: 13, name: 'Carolin Girvan' },
+	{ id: 13, name: 'Caroline Girvan' },
 	{ id: 14, name: '14th Dalai Lama' },
 	{ id: 15, name: 'Ida B Wells' },
 	{ id: 16, name: 'Jane Goodall' },

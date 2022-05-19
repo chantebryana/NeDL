@@ -62,7 +62,7 @@ function displayImg() {
                     urlRow = "<tr><td><img src=" + jsonData.url + "></tr></td>";
                     titleRow = "<tr><td>Title: " + jsonData.title + "</td></tr>";
                     hdUrlRow = "<tr><td><a href=\"" + jsonData.hdurl + "\">HD Image Link</a></td></tr>";
-                    longDescriptionRow = "<tr><td><em>" + jsonData.explanation + "</em></td></tr>";
+                    longDescriptionRow = "<tr><td><br /><em>" + jsonData.explanation + "</em></td></tr>";
                     //display new image + extra info on individual table rows
                     tableRef1.innerHTML = urlRow;
                     tableRef2.innerHTML = titleRow + hdUrlRow + longDescriptionRow;

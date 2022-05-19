@@ -29,7 +29,7 @@ async function displayImg() {
 	let urlRow = "<tr><td><img src=" + jsonData.url + "></tr></td>";
 	let titleRow = "<tr><td>Title: " + jsonData.title + "</td></tr>";
 	let hdUrlRow = "<tr><td><a href=\"" + jsonData.hdurl + "\">HD Image Link</a></td></tr>";
-	let longDescriptionRow = "<tr><td><em>" + jsonData.explanation + "</em></td></tr>";
+	let longDescriptionRow = "<tr><td><br /><em>" + jsonData.explanation + "</em></td></tr>";
 
 	//display new image + extra info on individual table rows
 	tableRef1.innerHTML = urlRow;

@@ -3,26 +3,27 @@
 	<head>
 		<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspiration Nuggets</title>
+    <title>NASA APOD</title>
 
     <link rel="stylesheet" href="apod.css">
     <script src="apod.js"></script>
 	</head> <!--end head-->
 
 	<body>
-		<h1>Quote Me!</h1>
+		<h1>&#127756; NASA Astronomy Picture of the Day &#127756;</h1>
 		<div class="myflexboxRow">
 			<div class="myflexboxColumn">
-				<h2>Find a Quote</h2>
+				<!--<h2></h2>-->
 				<form name="myForm">
-					Select Quote Length: 
-					<select name="quoteLength" id="quoteLength">
+					Select date to display: 
+					<input type="date">
+					<!-- <select name="quoteLength" id="quoteLength">
 						<option value="Short">Short</option>
 						<option value="Medium">Medium</option>
 						<option value="Long">Long</option>
-					</select>
+					</select> -->
 					<br /><br />
-					<input type="button" value="Search" onclick="addToList()"> <!-- CE DIFFERENT METHOD TO SEARCH-->
+					<input type="button" value="Search" onclick="displayImg()">
 				</form>
 			</div>
 			<div class="myflexboxColumn">

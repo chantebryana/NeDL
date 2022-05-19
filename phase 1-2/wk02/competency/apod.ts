@@ -1,53 +1,35 @@
 //get quote length from user, make API call, then print corresponding quote to web page
-async function addToList() {
+async function displayImg() {
 	//01) declare variables
-	//API URL
-	let apiString = "https://api.quotable.io";
+	//API URL; includes unique api key (allows something like 1000 hits per day)
+	let apiString = "https://api.nasa.gov/planetary/apod?api_key=d2VP3j0H9CX6rTtCLLpEHRKjHfjXf4SEsh3JaCPo";
 
 	//get table reference; make sure to set to HTMLTableElement for later on
 	let tableRef = <HTMLTableElement>document.getElementById("myList1");
 	
-	//get quote length from user
-	var quoteLength = "";
-	quoteLength = document.forms["myForm"][0].value;
+	//get date from user; formatted as text YYYY-MM-DD; this matches API format
+	var date = "";
+	date = document.forms["myForm"][0].value;
 
-	//02) make API call (depending on quote length) and print quote to web page
-	//if short
-	if (quoteLength == "Short") {
-		//select short quote
-		console.log(quoteLength);
-		apiString = apiString + "/random";
-		
-		//make API call and parse json
-		let response = await fetch(apiString);
-		let jsonData = await response.json();
+	//02) make API call (depending on date selected)
+	apiString = apiString + "&date=" + date;
+	console.log(apiString);
 
-		//CE debug tools
-		console.log(tableRef.innerHTML);
-		//console.log(tableRef.rows[0]);
-		console.log(jsonData);
+	//make API call and parse json
+	let response = await fetch(apiString);
+	let jsonData = await response.json();
 
-		//clear any old quotes and print new one
-		tableRef.innerHTML = "";
-		//tableRef.rows[0].remove();
-		(tableRef.insertRow(tableRef.rows.length).innerHTML) = jsonData.content + " --" + jsonData.author;
-	}
-	//else if medium
-	else if (quoteLength == "Medium") {
-		//select medium quote
-		console.log(quoteLength);
-	}
-	//else if long
-	else {
-		//select long quote
-		console.log(quoteLength);
-		
-		//print word on ToDo column
-		//let tableRef : any = {};
-		/* var tableRef = document.getElementById("myList1");
-		(tableRef.insertRow(tableRef.rows.length)).innerHTML = theNewWord;
-		//erase the form field
-		document.forms["myForm"]["newWord"].value = ""; */
-	}
+	//03) print image + info to web page
+	//clear any old info and print new one
+	tableRef.innerHTML = "";
+
+	//define variables for each table row (for easier reading)
+	let urlRow = "<tr><td><img src=" + jsonData.url + "></tr></td>";
+	let titleRow = "<tr><td>Title: " + jsonData.title + "</td></tr>";
+	let hdUrlRow = "<tr><td><a href=\"" + jsonData.hdurl + "\">HD Image Link</a></td></tr>";
+	let longDescriptionRow = "<tr><td>" + jsonData.explanation + "</td></tr>";
+
+	//display new image + extra info on individual table rows
+	tableRef.innerHTML = urlRow + titleRow + hdUrlRow + longDescriptionRow;
 }
 

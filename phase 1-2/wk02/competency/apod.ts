@@ -5,7 +5,8 @@ async function displayImg() {
 	let apiString = "https://api.nasa.gov/planetary/apod?api_key=d2VP3j0H9CX6rTtCLLpEHRKjHfjXf4SEsh3JaCPo";
 
 	//get table reference; make sure to set to HTMLTableElement for later on
-	let tableRef = <HTMLTableElement>document.getElementById("myList1");
+	let tableRef1 = <HTMLTableElement>document.getElementById("myList1");
+	let tableRef2 = <HTMLTableElement>document.getElementById("myList2");
 	
 	//get date from user; formatted as text YYYY-MM-DD; this matches API format
 	var date = "";
@@ -21,15 +22,17 @@ async function displayImg() {
 
 	//03) print image + info to web page
 	//clear any old info and print new one
-	tableRef.innerHTML = "";
+	tableRef1.innerHTML = "";
+	tableRef2.innerHTML = "";
 
 	//define variables for each table row (for easier reading)
 	let urlRow = "<tr><td><img src=" + jsonData.url + "></tr></td>";
 	let titleRow = "<tr><td>Title: " + jsonData.title + "</td></tr>";
 	let hdUrlRow = "<tr><td><a href=\"" + jsonData.hdurl + "\">HD Image Link</a></td></tr>";
-	let longDescriptionRow = "<tr><td>" + jsonData.explanation + "</td></tr>";
+	let longDescriptionRow = "<tr><td><em>" + jsonData.explanation + "</em></td></tr>";
 
 	//display new image + extra info on individual table rows
-	tableRef.innerHTML = urlRow + titleRow + hdUrlRow + longDescriptionRow;
+	tableRef1.innerHTML = urlRow;
+	tableRef2.innerHTML = titleRow + hdUrlRow + longDescriptionRow;
 }
 

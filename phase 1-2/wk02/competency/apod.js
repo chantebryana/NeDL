@@ -37,15 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 //get quote length from user, make API call, then print corresponding quote to web page
 function displayImg() {
     return __awaiter(this, void 0, void 0, function () {
-        var apiString, tableRef, date, response, jsonData, urlRow, titleRow, hdUrlRow, longDescriptionRow, response_1, jsonData_1;
+        var apiString, tableRef1, tableRef2, date, response, jsonData, urlRow, titleRow, hdUrlRow, longDescriptionRow;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     apiString = "https://api.nasa.gov/planetary/apod?api_key=d2VP3j0H9CX6rTtCLLpEHRKjHfjXf4SEsh3JaCPo";
-                    tableRef = document.getElementById("myList1");
+                    tableRef1 = document.getElementById("myList1");
+                    tableRef2 = document.getElementById("myList2");
                     date = "";
                     date = document.forms["myForm"][0].value;
-                    //02) make API call (depending on date selected) and print image to web page
+                    //02) make API call (depending on date selected)
                     apiString = apiString + "&date=" + date;
                     console.log(apiString);
                     return [4 /*yield*/, fetch(apiString)];
@@ -54,57 +55,18 @@ function displayImg() {
                     return [4 /*yield*/, response.json()];
                 case 2:
                     jsonData = _a.sent();
-                    //CE debug tools
-                    console.log(tableRef);
-                    //console.log(tableRef.rows[0]);
-                    console.log(jsonData.date);
-                    console.log(jsonData.title);
-                    console.log(jsonData.url);
+                    //03) print image + info to web page
                     //clear any old info and print new one
-                    tableRef.innerHTML = "";
+                    tableRef1.innerHTML = "";
+                    tableRef2.innerHTML = "";
                     urlRow = "<tr><td><img src=" + jsonData.url + "></tr></td>";
                     titleRow = "<tr><td>Title: " + jsonData.title + "</td></tr>";
                     hdUrlRow = "<tr><td><a href=\"" + jsonData.hdurl + "\">HD Image Link</a></td></tr>";
-                    longDescriptionRow = "<tr><td>Title: " + jsonData.explanation + "</td></tr>";
-                    //display new image + extra info
-                    tableRef.innerHTML = urlRow + titleRow + hdUrlRow + longDescriptionRow;
-                    if (!(date == "Short")) return [3 /*break*/, 5];
-                    //select short quote
-                    console.log(date);
-                    apiString = apiString + "/random";
-                    return [4 /*yield*/, fetch(apiString)];
-                case 3:
-                    response_1 = _a.sent();
-                    return [4 /*yield*/, response_1.json()];
-                case 4:
-                    jsonData_1 = _a.sent();
-                    //CE debug tools
-                    console.log(tableRef.innerHTML);
-                    //console.log(tableRef.rows[0]);
-                    console.log(jsonData_1);
-                    //clear any old quotes and print new one
-                    tableRef.innerHTML = "";
-                    //tableRef.rows[0].remove();
-                    (tableRef.insertRow(tableRef.rows.length).innerHTML) = jsonData_1.content + " --" + jsonData_1.author;
-                    return [3 /*break*/, 6];
-                case 5:
-                    if (date == "Medium") {
-                        //select medium quote
-                        console.log(date);
-                    }
-                    //else if long
-                    else {
-                        //select long quote
-                        console.log(date);
-                        //print word on ToDo column
-                        //let tableRef : any = {};
-                        /* var tableRef = document.getElementById("myList1");
-                        (tableRef.insertRow(tableRef.rows.length)).innerHTML = theNewWord;
-                        //erase the form field
-                        document.forms["myForm"]["newWord"].value = ""; */
-                    }
-                    _a.label = 6;
-                case 6: return [2 /*return*/];
+                    longDescriptionRow = "<tr><td><em>" + jsonData.explanation + "</em></td></tr>";
+                    //display new image + extra info on individual table rows
+                    tableRef1.innerHTML = urlRow;
+                    tableRef2.innerHTML = titleRow + hdUrlRow + longDescriptionRow;
+                    return [2 /*return*/];
             }
         });
     });

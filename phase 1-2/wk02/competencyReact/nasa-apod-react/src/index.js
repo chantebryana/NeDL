@@ -21,6 +21,7 @@ class NasaImage extends React.Component {
   render() {
     return (
       <div>
+				<h1>{this.props.date}</h1>
 				<img src="https://apod.nasa.gov/apod/image/2205/cheshirecat_chandra_complg_1024.jpg"></img>
       </div>
     );
@@ -33,8 +34,8 @@ class DateSelector extends React.Component {
 			<div>
 				<form name="myForm">
 					Select date to display: 
-					<input type="date" name="apod" max="2022-05-23"></input>
-					<input type="button" value="Search for Image" onClick={() => {console.log("clicky stuffs")}}></input>
+					<input type="date" name="apod" max="2022-05-23" onChange={this.props.onDateChange}></input>
+					<input type="button" value="Search for Image" onClick={(param) => {console.log(param.target.value)}}></input>
 				</form>
 			</div>
 		);
@@ -42,16 +43,51 @@ class DateSelector extends React.Component {
 }
 
 class NasaApod extends React.Component {
-  render() {
+
+	state= {
+		date: "",
+		apiResponse: undefined
+	}
+
+  handleDateChange = (event) => {
+		console.log(event.target.value);
+		//change state
+		this.setState({date: event.target.value})
+	}
+	
+	//make method
+	async getData() {
+		//call to API
+		//get data
+		//store in state
+
+		//01) declare variables
+		//API URL; includes unique api key (allows something like 1000 hits per day)
+		let apiString = "https://api.nasa.gov/planetary/apod?api_key=d2VP3j0H9CX6rTtCLLpEHRKjHfjXf4SEsh3JaCPo";
+		
+		//get date from user; formatted as text YYYY-MM-DD; this matches API format
+		var date = "";
+		date = document.forms["myForm"][0].value;
+
+		//02) make API call (depending on date selected)
+		apiString = apiString + "&date=" + date;
+		console.log(apiString);
+
+		//make API call and parse json
+		let response = await fetch(apiString);
+		let jsonData = await response.json();
+		}
+	
+	render() {
     return (
       <div className="nasa-apod">
         <h1>&#127756; NASA Astronomy Picture of the Day &#127756;</h1>
 				<div className="date-selector">
-					<DateSelector />
+					<DateSelector onDateChange={this.handleDateChange} date={this.state.date}/>
 					<br /><br />
 				</div>
 				<div className="nasa-image">
-          <NasaImage />
+          <NasaImage date={this.state.date}/>
 					<br /><br />
         </div>
         <div className="image-info">

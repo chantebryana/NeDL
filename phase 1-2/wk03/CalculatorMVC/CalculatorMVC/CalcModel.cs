@@ -12,6 +12,7 @@ namespace CalculatorMVC
         public double UserInput1 { get; set; }
         public double UserInput2 { get; set; }
         public string Operator { get; set; }
+        public string EndApp { get; set; }
 
         //default constructor
         public CalcModel()
@@ -19,14 +20,16 @@ namespace CalculatorMVC
             UserInput1 = double.NaN;
             UserInput2 = double.NaN;
             Operator = "";
+            EndApp = "";
         }
 
         //override constructor
-        public CalcModel(double input1, double input2, string anOperator)
+        public CalcModel(double input1, double input2, string anOperator, string endOrNot)
         {
             UserInput1 = input1;
             UserInput2 = input2;
             Operator = anOperator;
+            EndApp = endOrNot;
         }
 
         public double CalculateTotal()
@@ -58,6 +61,19 @@ namespace CalculatorMVC
                     break;
             }
             return result;
+        }
+
+        public bool ContinueOrEnd()
+        {
+            Console.WriteLine($"EndApp inside model: {EndApp}.");
+            if (EndApp == "n")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

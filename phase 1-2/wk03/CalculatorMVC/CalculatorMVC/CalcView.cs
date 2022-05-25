@@ -13,6 +13,7 @@ namespace CalculatorMVC
         public double UserInput2 { get; set; }
         public string Operator { get; set; }
         public double Result { get; set; }
+        public string EndApp { get; set; }
 
         //constructor
         public CalcView()
@@ -21,6 +22,7 @@ namespace CalculatorMVC
             UserInput2 = double.NaN;
             Operator = "";
             Result = double.NaN;
+            EndApp = "";
             GetValues();
         }
 
@@ -50,6 +52,17 @@ namespace CalculatorMVC
         public void ShowCalculation ()
         {
             Console.WriteLine("Your result: {0:0.##}", Result);
+        }
+
+        //public method to decide whether to continue or quit app
+        public void ContinueOrQuit ()
+        {
+            // Wait for the user to respond before closing.
+            Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+            EndApp = Console.ReadLine();
+            Console.WriteLine($"View EndApp: {EndApp}");
+            Console.WriteLine("\n"); // Friendly linespacing.
+
         }
     }
 }

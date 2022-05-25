@@ -10,8 +10,14 @@ namespace DepInj01
     {
         static void Main(string[] args)
         {
+            //instantiate ProductService
             ProductService productService = new ProductService();
-            productService.Log("Chante's testing the method all by myself.");
+
+            //log to file
+            productService.LogToFile("Chante's testing the method all by myself.");
+
+            //log to database
+            productService.LogToDatabase("Chante's testing the database.");
         }
     }
 }

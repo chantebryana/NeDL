@@ -14,10 +14,10 @@ namespace DepInj01
             ProductService productService = new ProductService();
 
             //log to file
-            productService.LogToFile("Chante's testing the method all by myself.");
+            productService.LogF("Chante's testing the method all by myself.");
 
             //log to database
-            productService.LogToDatabase("Chante's testing the database.");
+            productService.LogD("Chante's testing the database.");
         }
     }
 }

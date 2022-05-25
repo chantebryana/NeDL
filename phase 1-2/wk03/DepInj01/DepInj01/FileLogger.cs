@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DepInj01
 {
-    internal class FileLogger
+    //internal class FileLogger
+    public class FileLogger : ILogger
     {
         //no variables or properties to implement
         //no constructors

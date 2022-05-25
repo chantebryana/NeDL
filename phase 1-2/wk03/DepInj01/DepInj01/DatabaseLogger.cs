@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DepInj01
 {
-    internal class DatabaseLogger
+    //internal class DatabaseLogger
+    public class DatabaseLogger : ILogger
     {
         public void Log(string message)
         {

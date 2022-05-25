@@ -6,31 +6,21 @@ using System.Threading.Tasks;
 
 namespace DepInj01
 {
-    internal class ProductService
+    public class ProductService
     {
-        //ProductService doesn't inherit on FileLogger, 
-        //but does instantiate a local FileLogger element
-        //PS is therefore dependent of FL
+        //implement interface instead
+        //still not as flexible as a full-blown dependency injection
+        ILogger _logger = new FileLogger();
+        ILogger _logger2 = new DatabaseLogger();
 
-        //it's inflexible / too tightly coupled to structure the code this way. 
-
-        //instantiate instance of FileLogger
-        private readonly FileLogger _fileLogger = new FileLogger();
-
-        //instantiate instance of DatabaseLogger
-        private readonly DatabaseLogger _databaseLogger = new DatabaseLogger();
-
-        //Log method; calls Log method inside FileLogger class
-        public void LogToFile(string message)
+        public void LogF(string message)
         {
-            _fileLogger.Log(message);
+            _logger.Log(message);
         }
 
-        //Log method; calls Log method inside DatabaseLogger class
-        public void LogToDatabase(string message)
+        public void LogD(string message)
         {
-            _databaseLogger.Log(message);
+            _logger2.Log(message);
         }
-
     }
 }

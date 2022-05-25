@@ -10,7 +10,8 @@ namespace DepInj01
     {
         static void Main(string[] args)
         {
-
+            ProductService productService = new ProductService();
+            productService.Log("Chante's testing the method all by myself.");
         }
     }
 }

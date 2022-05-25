@@ -10,14 +10,22 @@ namespace DepInj01
     {
         static void Main(string[] args)
         {
-            //instantiate ProductService
-            ProductService productService = new ProductService();
+            //instantiate new filelogger and databaselogger
+            ILogger logger = new FileLogger();
+            ILogger logger2 = new DatabaseLogger();
+            
+            //pass new filelogger-type logger variable into 
+            //instantiation of ProductService class
+            ProductService productService = new ProductService(logger);
 
-            //log to file
-            productService.LogF("Chante's testing the method all by myself.");
+            //database version of productService
+            ProductService productServiceD = new ProductService(logger2);
 
-            //log to database
-            productService.LogD("Chante's testing the database.");
+            //log to text file
+            productService.Log("Chante testing final result");
+
+            //log to db
+            productServiceD.Log("load my database");
         }
     }
 }

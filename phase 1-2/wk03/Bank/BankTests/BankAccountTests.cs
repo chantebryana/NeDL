@@ -40,10 +40,24 @@ namespace BankTests
             //set up new BankAccount object with a beginning balance
             BankAccount account = new BankAccount("Ms. Bryana Walton", beginningBalance);
 
-            //Act and Assert
-            //try to withdrawal negative amount; should throw exception
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
+            //Act
+            try
+            {
+                //try to withdrawal a negative value from account
+                account.Debit(debitAmount);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                //Assert
+                //should get 'negative value' exception message
+                StringAssert.Contains(e.Message, BankAccount.DebitAmountLessThanZeroMessage);
 
+                //empty return to break out of method
+                return;
+            }
+
+            //throws exception if 'catch' isn't hit
+            Assert.Fail("The expected exception was not thrown.");
         }
 
         [TestMethod]
@@ -66,9 +80,15 @@ namespace BankTests
             catch (System.ArgumentOutOfRangeException e)
             {
                 //Assert
-                //should get exception message
+                //should get 'overdraw' exception message
                 StringAssert.Contains(e.Message, BankAccount.DebitAmountExceedsBalanceMessage);
+                
+                //empty return to break out of method
+                return;
             }
+
+            //throw exception if 'catch' block never hit
+            Assert.Fail("The expected exception was not thrown.");
         }
     }
 }

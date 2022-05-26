@@ -57,10 +57,18 @@ namespace BankTests
             //set up new BankAccount object with a beginning balance
             BankAccount account = new BankAccount("That's Pat Walton", beginningBalance);
 
-            //Act and Assert
-            //try to overdraft; should throw exception
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
-
+            //Act
+            try
+            {
+                //try to overdraft from BankAccount objects
+                account.Debit(debitAmount);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                //Assert
+                //should get exception message
+                StringAssert.Contains(e.Message, BankAccount.DebitAmountExceedsBalanceMessage);
+            }
         }
     }
 }

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApiCe", "TodoApiCe\TodoApiCe.csproj", "{34D07182-0593-4D15-8FA8-D66CF4775925}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34D07182-0593-4D15-8FA8-D66CF4775925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D07182-0593-4D15-8FA8-D66CF4775925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D07182-0593-4D15-8FA8-D66CF4775925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D07182-0593-4D15-8FA8-D66CF4775925}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {889E11F4-4E16-478E-B835-B3FC192D3065}
+	EndGlobalSection
+EndGlobal

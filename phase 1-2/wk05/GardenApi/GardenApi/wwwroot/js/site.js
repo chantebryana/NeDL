@@ -10,10 +10,12 @@ function getItems() {
 
 function addItem() {
     const addNameTextbox = document.getElementById('add-name');
+    const addHarvestTextbox = document.getElementById('add-harvest-notes');
 
     const item = {
         isComplete: false,
-        name: addNameTextbox.value.trim()
+        name: addNameTextbox.value.trim(),
+        harvestNotes: addHarvestTextbox.value.trim()
     };
 
     fetch(uri, {
@@ -28,6 +30,7 @@ function addItem() {
         .then(() => {
             getItems();
             addNameTextbox.value = '';
+            addHarvestTextbox.value = '';
         })
         .catch(error => console.error('Unable to add item.', error));
 }

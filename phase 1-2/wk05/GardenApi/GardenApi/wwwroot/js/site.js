@@ -47,6 +47,7 @@ function displayEditForm(id) {
     const item = gardenItems.find(item => item.id === id);
 
     document.getElementById('edit-name').value = item.name;
+    document.getElementById('edit-harvestNotes').value = item.harvestNotes;
     document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-isComplete').checked = item.isComplete;
     document.getElementById('editForm').style.display = 'block';
@@ -57,7 +58,8 @@ function updateItem() {
     const item = {
         id: parseInt(itemId, 10),
         isComplete: document.getElementById('edit-isComplete').checked,
-        name: document.getElementById('edit-name').value.trim()
+        name: document.getElementById('edit-name').value.trim(),
+        harvestNotes: document.getElementById('edit-harvestNotes').value.trim()
     };
 
     fetch(`${uri}/${itemId}`, {

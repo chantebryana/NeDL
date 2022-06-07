@@ -13,7 +13,7 @@ function addItem() {
     const addHarvestTextbox = document.getElementById('add-harvest-notes');
 
     const item = {
-        isComplete: false,
+        isSowed: false,
         name: addNameTextbox.value.trim(),
         harvestNotes: addHarvestTextbox.value.trim()
     };
@@ -45,11 +45,14 @@ function deleteItem(id) {
 
 function displayEditForm(id) {
     const item = gardenItems.find(item => item.id === id);
+    //ce debug
+    console.log('edit-item:');
+    console.log(item);
 
     document.getElementById('edit-name').value = item.name;
     document.getElementById('edit-harvestNotes').value = item.harvestNotes;
     document.getElementById('edit-id').value = item.id;
-    document.getElementById('edit-isComplete').checked = item.isComplete;
+    document.getElementById('edit-isSowed').checked = item.isSowed;
     document.getElementById('editForm').style.display = 'block';
 }
 
@@ -57,10 +60,13 @@ function updateItem() {
     const itemId = document.getElementById('edit-id').value;
     const item = {
         id: parseInt(itemId, 10),
-        isComplete: document.getElementById('edit-isComplete').checked,
+        isSowed: document.getElementById('edit-isSowed').checked,
         name: document.getElementById('edit-name').value.trim(),
         harvestNotes: document.getElementById('edit-harvestNotes').value.trim()
     };
+    //ce debug
+    console.log('updateItem - item');
+    console.log(item);
 
     fetch(`${uri}/${itemId}`, {
         method: 'PUT',
@@ -100,10 +106,11 @@ function _displayItems(data) {
     const button = document.createElement('button');
 
     data.forEach(item => {
-        let isCompleteCheckbox = document.createElement('input');
-        isCompleteCheckbox.type = 'checkbox';
-        isCompleteCheckbox.disabled = true;
-        isCompleteCheckbox.checked = item.isComplete;
+        let isSowedCheckbox = document.createElement('input');
+        isSowedCheckbox.type = 'checkbox';
+        isSowedCheckbox.disabled = true;
+        //isCompleteCheckbox.checked = item.isComplete;
+        isSowedCheckbox.checked = item.isSowed;
 
         let editButton = button.cloneNode(false);
         editButton.innerText = 'Edit';
@@ -116,7 +123,7 @@ function _displayItems(data) {
         let tr = tBody.insertRow();
 
         let td1 = tr.insertCell(0);
-        td1.appendChild(isCompleteCheckbox);
+        td1.appendChild(isSowedCheckbox);
 
         let td2 = tr.insertCell(1);
         let textNode = document.createTextNode(item.name);

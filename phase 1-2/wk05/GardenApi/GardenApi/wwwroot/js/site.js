@@ -88,6 +88,9 @@ function _displayItems(data) {
     tBody.innerHTML = '';
 
     _displayCount(data.length);
+    //CE NOTES FOR DEBUGGING!
+    console.log('data: ');
+    console.log(data);
 
     const button = document.createElement('button');
 
@@ -115,10 +118,14 @@ function _displayItems(data) {
         td2.appendChild(textNode);
 
         let td3 = tr.insertCell(2);
-        td3.appendChild(editButton);
+        let textNode1 = document.createTextNode(item.harvestNotes);
+        td3.appendChild(textNode1);
 
         let td4 = tr.insertCell(3);
-        td4.appendChild(deleteButton);
+        td4.appendChild(editButton);
+
+        let td5 = tr.insertCell(4);
+        td5.appendChild(deleteButton);
     });
 
     gardenItems = data;

@@ -9,6 +9,7 @@ import { Storage } from '@capacitor/storage';
 export class PhotoService {
   //define variables
   public photos: UserPhoto[] = []; //array contains reference to each photo captured w camera
+  private PHOTO_STORAGE: string = 'photos'; //key for data storage
 
   //save photo to filesystem
   //pass in photo object, which represents the newly captured image
@@ -69,6 +70,34 @@ export class PhotoService {
     //save teh picture and add it to photo collection
     const savedImageFile : UserPhoto = await this.savePicture(capturedPhoto); //implied typing
     this.photos.unshift(savedImageFile);
+
+    //save photos array
+    //photos array is stored each time a new photo is taken
+    //all data is saved even if app is closed
+    Storage.set({
+      key: this.PHOTO_STORAGE,
+      value: JSON.stringify(this.photos),
+    });
+  }
+
+  //to retrieve saved photo data
+  public async loadSaved() {
+    //retrieve cached photo array data
+    const photoList = await Storage.get({ key: this.PHOTO_STORAGE});
+    this.photos = JSON.parse(photoList.value) || [];
+
+    //more to come...
+    //display the photo by reading into base64 format
+    for (let photo of this.photos) {
+      //read each saved photo's data form the filesystem
+      const readFile = await Filesystem.readFile({
+        path: photo.filepath,
+        directory: Directory.Data,
+      });
+
+      //web platform only: load the photo as base64 data
+      photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
+    }
   }
 
   

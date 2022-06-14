@@ -61,14 +61,8 @@ export class PhotoService {
       quality: 100 // highest quality (0 to 100)
     });
 
-    //add newly captured photo to beginning of photos array
-    this.photos.unshift({
-      filepath: "soon...",
-      webviewPath: capturedPhoto.webPath
-    });
-
     //save teh picture and add it to photo collection
-    const savedImageFile : UserPhoto = await this.savePicture(capturedPhoto); //implied typing
+    const savedImageFile : UserPhoto = await this.savePicture(capturedPhoto);
     this.photos.unshift(savedImageFile);
 
     //save photos array

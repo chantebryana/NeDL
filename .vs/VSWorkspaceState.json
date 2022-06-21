@@ -1,10 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\phase 1-2",
+    "\\phase 1-2\\wk04",
     "\\phase 1-2\\wk04\\express-demo",
-    "\\phase 1-2\\wk04\\nodeApp01"
+    "\\phase 1-2\\wk04\\nodeApp01",
+    "\\phase 1-3",
+    "\\phase 1-3\\wk02",
+    "\\phase 1-3\\wk02\\activity04",
+    "\\phase 1-3\\wk02\\activity04\\Backend",
+    "\\phase 1-3\\wk02\\activity04\\Backend\\Controllers"
   ],
-  "SelectedNode": "\\phase 1-2\\wk05",
+  "SelectedNode": "\\phase 1-3\\wk02\\activity04\\Backend\\Backend.csproj",
   "PreviewInSolutionExplorer": false
 }

@@ -32,22 +32,33 @@ class EmailAccessor
 
 class OrderManager
 {
-    public void SendNotification(int id)
+		private OrderAccessor OrderAccessor { get;set; }
+    private EmailAccessor EmailAccessor { get;set; }
+    public OrderManager(OrderAccessor orderAccessor,      
+        EmailAccessor emailAccessor)
     {
-        var orderAccessor = new OrderAccessor(); //bc using 'new', can't mock (not using DI)
-        var order = orderAccessor.Find(id);
-        var emailAccessor = new EmailAccessor(); //bc using 'new', can't mock (not using DI)
-        emailAccessor.SendEmail(order);
+        OrderAccessor = orderAccessor;
+        EmailAccessor = emailAccessor;
     }
+
+		public void SendNotification(int id)
+{
+    var order = OrderAccessor.Find(id);
+    EmailAccessor.SendEmail(order);
+}
+
+
 }
 
 class Program
 {
     static void Main(string[] args)
-    {
-        var manager = new OrderManager();
-        manager.SendNotification(1);
-    }
+{
+    var manager = new OrderManager(
+        new OrderAccessor(), new EmailAccessor());
+    manager.SendNotification(1);
+}
+
 }
 
 }
